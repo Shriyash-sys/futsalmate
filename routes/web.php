@@ -1,0 +1,72 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FutsalController;
+use App\Http\Controllers\ProfileController;
+use App\Models\Admin;
+
+Route::resource('/futsals', FutsalController::class);
+
+Route::get('/login', [FutsalController::class, 'showLoginForm'])->name('loginForm');
+
+Route::get('/signup-form', [FutsalController::class, 'showSignupForm'])->name('signupForm');  
+
+Route::post('/signup', [FutsalController::class, 'register'])->name('register');
+
+Route::post('/login', [FutsalController::class, 'login'])->name('login');
+
+Route::redirect('/', 'futsals');
+
+Route::post('/logout', [FutsalController::class, 'logout'])->name('logout');
+
+Route::get('/mybookings', [FutsalController::class, 'showMyBookings'])->name('mybookings');
+
+Route::get('/profile', [FutsalController::class, 'showProfile'])->name('profile');
+
+Route::get('/dashboard', [FutsalController::class, 'userDashboard'])->name('userDashboard');
+
+// Apply 'auth' middleware to protect the route
+Route::middleware(['auth'])->group(function () {
+    Route::put('/edit-profile', [ProfileController::class, 'editProfile'])->name('editProfile');
+    
+    Route::post('/add-profile-photo', [ProfileController::class, 'addProfilePhoto'])->name('addProfilePhoto');
+    
+    Route::delete('/delete-profile-photo', [ProfileController::class, 'deleteProfilePhoto'])->name('deleteProfilePhoto');
+
+});
+
+// Apply middleware to protect the booking routes
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/book-court', [FutsalController::class, 'showBookCourt'])->name('bookcourt');
+
+    Route::post('/bookings', [BookController::class, 'bookCourt'])->name('bookings');
+
+    Route::get('/booking-confirmation/{id}', [BookController::class, 'showBookingConfirmation'])->name('bookingConfirmation');
+
+});
+
+Route::get('/admin', [AdminController::class, 'showAdminLoginForm'])->name('admin');
+
+Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
+
+Route::get('/admin/signup-form', [AdminController::class, 'showAdminSignupForm'])->name('admin.signupForm');
+
+Route::post('/admin/signup', [AdminController::class, 'adminSignup'])->name('admin.signup');
+
+Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');   
+
+Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logouts');
+
+Route::get('/admin/bookings', [AdminController::class, 'showAdminBookings'])->name('admin.bookings');
+
+Route::get('/admin/mycourts', [AdminController::class, 'showAdminMyCourts'])->name('admin.mycourts');
+
+Route::get('/admin/profile', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
+
+Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
+
+Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
+
