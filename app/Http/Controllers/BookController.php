@@ -28,7 +28,7 @@ class BookController extends Controller
     public function showBookingConfirmation($id) {
 
         $courts = Court::with('court')->paginate();
-        $booking = Book::findOrFail($id);
+        $booking = Book::with('court')->findOrFail($id);
         return view('users.bookingConfirmation', compact('booking', 'courts'));
     }
 }
