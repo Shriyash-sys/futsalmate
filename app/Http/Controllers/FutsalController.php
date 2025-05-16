@@ -88,7 +88,12 @@ class FutsalController extends Controller
 
     public function showMyBookings() {
         $user = Auth::user();
-        $bookings = $user->bookings;
+        // $bookings = Book::with(['court', 'user'])->get();
+        if ($user) {
+            $bookings = Book::where('user_id', $user->id)->with(['court', 'user'])->get();
+        } else {
+            $bookings = [];
+        }
         return view('users.mybooking', compact('bookings'));
     }
 
@@ -123,8 +128,9 @@ class FutsalController extends Controller
 
         Auth::login($user);
         session()->flash('success', 'You have successfully logged in.');
-        return redirect()->route('login');
-    }
+        // return redirect()->route('login');
+        return redirect()->route('userDashboard', $user->id);
+    }   
 
     public function login(LoginRequest $request) {
 

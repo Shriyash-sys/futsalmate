@@ -13,7 +13,7 @@
                     <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
                         @if($bookings->isNotEmpty())
                             <ul class="divide-y divide-gray-200">
-                                @foreach ($bookings as $booking)
+                                @foreach ($bookings as $key => $booking)
                                 <li class="px-4 py-5 sm:px-6 hover:bg-gray-50 transition duration-150 ease-in-out">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center space-x-4">
@@ -22,8 +22,10 @@
                                             </div>
                                             <div>
                                                 <h3 class="text-lg font-medium text-gray-900">{{ $booking->court }}</h3>
-                                                <p class="text-sm text-gray-500">Booking #{{ $booking->id }}</p>
-                                                <p class="text-sm text-gray-400">Main Branch</p>
+                                                <p class="text-sm text-gray-500">{{ $booking->id }}</p>
+<p class="text-sm text-gray-400">
+    {{ $booking->court->location }}
+</p>
                                             </div>
                                         </div>
                                         <div class="text-right">

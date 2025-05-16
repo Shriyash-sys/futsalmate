@@ -37,20 +37,17 @@
           <h2 class="text-lg font-semibold">My Courts</h2>
           <button class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded">+ Add Court</button>
         </div>
+        @foreach ($courtName as $court)   
+        
         <ul class="divide-y divide-gray-800">
           <li class="py-3 flex justify-between items-center">
-            <span>Court 1 - Indoor Turf</span>
-            <span class="text-sm text-gray-400">Capacity: 10</span>
+            <span>{{$court->court_name}}</span>
+            <span class="text-sm text-gray-400">{{$court->price}}/hr</span>
           </li>
-          <li class="py-3 flex justify-between items-center">
-            <span>Court 2 - Outdoor Grass</span>
-            <span class="text-sm text-gray-400">Capacity: 12</span>
-          </li>
-          <li class="py-3 flex justify-between items-center">
-            <span>Court 3 - Synthetic</span>
-            <span class="text-sm text-gray-400">Capacity: 8</span>
-          </li>
+          
         </ul>
+
+        @endforeach
       </section>
 
       <!-- Bookings -->
@@ -68,27 +65,15 @@
               </tr>
             </thead>
             <tbody>
+              @foreach ($userName as $user )
               <tr class="border-t border-gray-800">
-                <td class="p-2">John Doe</td>
+                  <td class="p-2">{{$user->full_name}}</td>
                 <td class="p-2">Court 1</td>
                 <td class="p-2">2025-05-15</td>
                 <td class="p-2">18:00 - 19:00</td>
                 <td class="p-2 text-green-400 font-medium">Confirmed</td>
               </tr>
-              <tr class="border-t border-gray-800">
-                <td class="p-2">Maria López</td>
-                <td class="p-2">Court 3</td>
-                <td class="p-2">2025-05-16</td>
-                <td class="p-2">20:00 - 21:00</td>
-                <td class="p-2 text-yellow-300 font-medium">Pending</td>
-              </tr>
-              <tr class="border-t border-gray-800">
-                <td class="p-2">Ali Khan</td>
-                <td class="p-2">Court 2</td>
-                <td class="p-2">2025-05-16</td>
-                <td class="p-2">19:00 - 20:00</td>
-                <td class="p-2 text-red-400 font-medium">Cancelled</td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

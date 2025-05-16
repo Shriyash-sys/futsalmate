@@ -84,6 +84,7 @@
                     <div class="ml-3 flex justify-between w-full">
                         <div>
                             <label for="court{{$court->id}}" class="font-medium text-gray-700">{{$court->court_name}}</label>
+                            <input type="hidden" name="court" value="{{$court->court_name}}">
                             <p class="text-gray-500">{{$court->location}}</p>
                         </div>
                         <div class="text-right">

@@ -17,6 +17,7 @@ class BookController extends Controller
         'time' => $request->time,
         'payment' => $request->payment,
         'court_id' => $request->court_id,
+        'court' => $request->court,
         'user_id' => Auth::id(),
         'price' => Court::find($request->court_id)->price,
     ]);  
@@ -34,6 +35,7 @@ class BookController extends Controller
 
         $courts = Court::paginate();
         $booking = Book::with('court')->findOrFail($id);
+        // dd($booking);
         return view('users.bookingConfirmation', compact('booking', 'courts'));
     }
 }

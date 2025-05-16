@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Court;
 use Illuminate\Http\Request;
@@ -24,9 +26,11 @@ class AdminController extends Controller
     public function showAdminDashboard() 
     {
         $admin = Auth::guard('admin')->user();
-        $bookings = Court::where('admin_id', $admin->id)->count();
+        $bookings = Book::where('court_id', $admin->id)->count();
         $courts = Court::where('admin_id', $admin->id)->count();
-        return view('admin.dashboard', compact('admin','bookings','courts'));
+        $courtName = Court::where('admin_id', $admin->id)->get();
+        $userName = Book::
+        return view('admin.dashboard', compact('admin','bookings','courts', 'courtName', 'userName'));
     }
 
     public function showAdminBookings() 
