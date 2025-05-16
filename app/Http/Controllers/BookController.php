@@ -21,9 +21,6 @@ class BookController extends Controller
         'price' => Court::find($request->court_id)->price,
     ]);  
 
-        // $booking->user_id = Auth::id();        // Set the authenticated user's ID
-        // $booking->price = Court::find($request->court_id)->price;
-
         // Save the booking
         $booking->save();
 
