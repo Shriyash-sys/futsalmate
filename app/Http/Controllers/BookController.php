@@ -12,9 +12,17 @@ class BookController extends Controller
 {
     public function bookCourt(BookRequest $request)
     {
-        $booking = new Book($request->all());  // Populate the model with the request data
-        $booking->user_id = Auth::id();        // Set the authenticated user's ID
-        $booking->price = Court::find($request->court_id)->price;
+        $booking = new Book([
+        'date' => $request->date,
+        'time' => $request->time,
+        'payment' => $request->payment,
+        'court_id' => $request->court_id,
+        'user_id' => Auth::id(),
+        'price' => Court::find($request->court_id)->price,
+    ]);  
+
+        // $booking->user_id = Auth::id();        // Set the authenticated user's ID
+        // $booking->price = Court::find($request->court_id)->price;
 
         // Save the booking
         $booking->save();
@@ -27,7 +35,7 @@ class BookController extends Controller
 
     public function showBookingConfirmation($id) {
 
-        $courts = Court::with('court')->paginate();
+        $courts = Court::paginate();
         $booking = Book::with('court')->findOrFail($id);
         return view('users.bookingConfirmation', compact('booking', 'courts'));
     }
