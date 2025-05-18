@@ -50,23 +50,41 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/admin', [AdminController::class, 'showAdminLoginForm'])->name('admin');
 
-Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
-
 Route::get('/admin/signup-form', [AdminController::class, 'showAdminSignupForm'])->name('admin.signupForm');
 
 Route::post('/admin/signup', [AdminController::class, 'adminSignup'])->name('admin.signup');
 
 Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');   
 
-Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logouts');
+Route::middleware('auth:admin')->group(function () {
 
-Route::get('/admin/bookings', [AdminController::class, 'showAdminBookings'])->name('admin.bookings');
+Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
+    
+    Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logouts');
+    
+    Route::get('/admin/bookings', [AdminController::class, 'showAdminBookings'])->name('admin.bookings');
+    
+    Route::get('/admin/mycourts', [AdminController::class, 'showAdminMyCourts'])->name('admin.mycourts');
 
-Route::get('/admin/mycourts', [AdminController::class, 'showAdminMyCourts'])->name('admin.mycourts');
+    Route::get('/admin/users', [AdminController::class, 'showAdminUsers'])->name('admin.users');
+    
+    Route::get('/admin/profile', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
+    
+    Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
+    
+    Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
 
-Route::get('/admin/profile', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
+    Route::post('/admin/admin-profile-photo', [AdminController::class, 'addAdminProfilePhoto'])->name('admin.addAdminProfilePhoto');
 
-Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
+    Route::delete('/admin/delete-profile-photo', [AdminController::class, 'deleteAdminProfilePhoto'])->name('admin.deleteAdminProfilePhoto');
+});
 
-Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
+
+
+
+
+
+
+
+
 

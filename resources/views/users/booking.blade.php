@@ -71,8 +71,7 @@
         <p class="mt-1 max-w-2xl text-sm">Choose your preferred court</p>
     </div>
     
-    @if($courts->isNotEmpty())
-        @foreach ($courts as $court)
+        @forelse ($courts as $court)
         <div class="px-4 py-5 sm:p-6">
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative flex items-start">
@@ -94,9 +93,7 @@
                 </div>
             </div>
         </div>
-        @endforeach
-        {{ $courts->links() }}
-    @else
+        @empty
         <!-- Improved Empty State -->
         <div class="px-6 py-12 text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,7 +102,7 @@
             <h3 class="mt-4 text-lg font-medium text-gray-700">No Courts Available</h3>
             <p class="mt-2 text-gray-500">We couldn't find any courts right now.</p>
         </div>
-    @endif
+    @endforelse
 </div>
                         <!-- Step 3: Payment Method -->
                         <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">

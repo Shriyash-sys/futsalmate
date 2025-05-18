@@ -89,12 +89,14 @@ class FutsalController extends Controller
     public function showMyBookings() {
         $user = Auth::user();
         // $bookings = Book::with(['court', 'user'])->get();
-        if ($user) {
-            $bookings = Book::where('user_id', $user->id)->with(['court', 'user'])->get();
-        } else {
-            $bookings = [];
-        }
-        return view('users.mybooking', compact('bookings'));
+        // if ($user) {
+        //     $bookings = Book::where('user_id', $user->id)->with(['court', 'user'])->get();
+        // } else {
+        //     $bookings = [];
+        // }
+
+        $bookings = Book::where('user_id', $user->id)->with('court')->get();
+        return view('users.mybooking', compact('user', 'bookings'));
     }
 
     public function showProfile() {

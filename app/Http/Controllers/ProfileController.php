@@ -45,8 +45,8 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!$user || !($user instanceof User)) {
-        abort(403, 'User not authenticated or invalid model.');
-    }
+            abort(403, 'User not authenticated or invalid model.');
+        }
 
         // Delete old photo
         if ($user->profile_photo_path) {
@@ -83,6 +83,6 @@ public function deleteProfilePhoto()
         $user->save();
     }
 
-    return redirect()->back()->with('status', 'Profile picture removed.');
+    return redirect()->back()->with('status', 'Profile picture removed.');
 }
 }

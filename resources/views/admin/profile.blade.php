@@ -2,63 +2,83 @@
 
 @section('conduct')
 
-    <!-- Main Content -->
-    <div class="h-full w-full bg-gray-950 flex flex-col items-center justify-start pt-12 px-6">
+<!-- Main Container -->
+<div class="min-h-screen w-full bg-gradient-to-br from-gray-950 via-gray-900 to-black flex flex-col items-center justify-start pt-12 px-4 sm:px-6 text-white font-sans">
 
-        <!-- Profile Card Full Width -->
-        <div class="w-full max-w-6xl bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
+    <!-- Card -->
+    <div class="w-full max-w-6xl bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
 
-        <!-- Header with cover -->
-        <div class="relative h-48 bg-gradient-to-r from-gray-800 to-gray-700">
-            <div class="absolute -bottom-12 left-10">
-            <img src="https://i.pravatar.cc/100?img=12" alt="Admin" class="w-24 h-24 rounded-full border-4 border-black shadow-xl" />
+        <!-- Profile Photo + Upload -->
+        <div class="flex flex-col sm:flex-row items-center sm:items-end gap-6 px-10 pt-10 pb-4">
+            <div class="relative">
+                <img src="{{ Auth::user()->profile_photo_url ? asset(Auth::user()->profile_photo_url) : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}"
+                    alt="Profile Picture"
+                    class="w-32 h-32 rounded-full object-cover ring-4 ring-green-400 shadow-xl transition-all duration-300 hover:scale-105" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <form method="POST" action="{{ route('admin.addAdminProfilePhoto') }}" enctype="multipart/form-data">
+                    @csrf
+                    <label for="profile_photo" class="cursor-pointer inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow transition duration-300">
+                        Change Picture
+                    </label>
+                    <input type="file" name="profile_photo" id="profile_photo" accept="image/*" class="hidden" onchange="this.form.submit()" />
+                </form>
+
+                @if(Auth::user()->profile_photo_url)
+                    <form method="POST" action="{{ route('admin.deleteAdminProfilePhoto') }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-sm text-red-500 hover:underline transition">Remove Picture</button>
+                    </form>
+                @endif
             </div>
         </div>
 
-        <!-- Body -->
-        <div class="p-10 pt-20">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div>
-                <h2 class="text-3xl font-bold">{{$admin->full_name}}</h2>
-                <p class="text-gray-400">{{$admin->email}}</p>
-                <p class="text-sm text-gray-500 mt-1">Role: Super Admin</p>
-            </div>
-            <div class="mt-6 md:mt-0 flex space-x-4">
-                <button class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded">Edit Profile</button>
-                <button class="bg-gray-700 hover:bg-red-600 text-white px-4 py-2 rounded">Change Password</button>
-            </div>
-            </div>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 text-center mt-10 border border-gray-800 rounded-lg overflow-hidden">
-            <div class="p-6">
-                <p class="text-2xl font-bold">1,240</p>
-                <p class="text-gray-400 text-sm">Bookings</p>
-            </div>
-            <div class="border-t sm:border-t-0 sm:border-l sm:border-r border-gray-800 p-6">
-                <p class="text-2xl font-bold">6</p>
-                <p class="text-gray-400 text-sm">Courts</p>
-            </div>
-            <div class="p-6">
-                <p class="text-2xl font-bold">720</p>
-                <p class="text-gray-400 text-sm">Users</p>
-            </div>
-            </div>
-
-            <!-- More Info -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 text-gray-300">
-            <div>
-                <p class="text-sm text-gray-500">Joined</p>
-                <p class="text-white">March 15, 2024</p>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Status</p>
-                <p class="text-green-500 font-semibold">Active</p>
-            </div>
+        <!-- Profile Header -->
+        <div class="px-10 pb-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                <div>
+                    <h2 class="text-4xl font-bold text-white">{{ $admin->full_name }}</h2>
+                    <p class="text-gray-400">{{ $admin->email }}</p>
+                    <p class="text-sm text-gray-500 mt-1">Role: <span class="text-green-400 font-semibold">Super Admin</span></p>
+                </div>
+                <div class="mt-6 md:mt-0 flex gap-4">
+                    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded shadow text-sm">Edit Profile</button>
+                    <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded shadow text-sm">Change Password</button>
+                </div>
             </div>
         </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 px-10 pb-6 text-center">
+            <div class="bg-gray-800 p-6 rounded-xl shadow hover:bg-gray-700 transition">
+                <div class="text-3xl font-bold">{{ $bookings }}</div>
+                <div class="text-gray-400 mt-1">Bookings</div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-xl shadow hover:bg-gray-700 transition">
+                <div class="text-3xl font-bold">{{ $courts }}</div>
+                <div class="text-gray-400 mt-1">Courts</div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-xl shadow hover:bg-gray-700 transition">
+                <div class="text-3xl font-bold">{{ $registeredUserCount }}</div>
+                <div class="text-gray-400 mt-1">Registered Users</div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 px-10 pb-10">
+            <div class="bg-gray-800 p-5 rounded-lg shadow hover:shadow-md transition">
+                <p class="text-sm text-gray-500 mb-1">Joined</p>
+                <p class="text-white font-medium">{{ $joinedDate }}</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg shadow hover:shadow-md transition">
+                <p class="text-sm text-gray-500 mb-1">Status</p>
+                <p class="text-green-400 font-semibold">Active</p>
+            </div>
         </div>
 
     </div>
+</div>
 
 @endsection
