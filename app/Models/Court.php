@@ -23,7 +23,7 @@ class Court extends Model
     // }
 
     public function admin() {
-        return $this->hasMany(Admin::class);
+        return $this->belongsTo(Admin::class);
     }
 
     public function bookings()

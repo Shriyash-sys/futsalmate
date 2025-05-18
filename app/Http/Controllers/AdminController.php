@@ -29,7 +29,9 @@ class AdminController extends Controller
         $bookings = Book::where('court_id', $admin->id)->count();
         $courts = Court::where('admin_id', $admin->id)->count();
         $courtName = Court::where('admin_id', $admin->id)->get();
-        $userName = Book::
+        $courtIds = Court::where('admin_id', $admin->id)->pluck('id');
+
+        $userName = User::select('user_id', 'court_id')->get();
         return view('admin.dashboard', compact('admin','bookings','courts', 'courtName', 'userName'));
     }
 

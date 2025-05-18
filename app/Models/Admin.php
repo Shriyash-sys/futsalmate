@@ -22,6 +22,6 @@ class Admin extends Authenticatable
     ];
 
     public function court() {
-        return $this->belongsTo(Court::class);
+        return $this->hasMany(Court::class);
     }
 }

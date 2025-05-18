@@ -64,17 +64,17 @@
                 <th class="p-2 text-left">Status</th>
               </tr>
             </thead>
+            @foreach ($userName as $user )
             <tbody>
-              @foreach ($userName as $user )
               <tr class="border-t border-gray-800">
                   <td class="p-2">{{$user->full_name}}</td>
-                <td class="p-2">Court 1</td>
-                <td class="p-2">2025-05-15</td>
-                <td class="p-2">18:00 - 19:00</td>
+                <td class="p-2">{{$user->courts->court_name}}</td>
+                <td class="p-2">{{$user->date}}</td>
+                <td class="p-2">{{$user->time}}</td>
                 <td class="p-2 text-green-400 font-medium">Confirmed</td>
               </tr>
-              @endforeach
             </tbody>
+            @endforeach
           </table>
         </div>
       </section>
