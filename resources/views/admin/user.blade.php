@@ -1,12 +1,13 @@
 @extends('admin.layouts.master')
 
 @section('conduct')
+    
+<div class="min-h-screen w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
 
-<section class="p-6">
-<div class="bg-gray-900 rounded-xl shadow-lg px-6 py-5">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-white">Users</h2>
-    </div>
+    <div class="w-full bg-gray-900 rounded-xl shadow-lg px-6 py-5">
+        <div class="p-6 flex justify-between items-center border-b border-gray-800">
+            <h2 class="text-3xl font-bold text-white">Users</h2>
+        </div>
 
     <div class="overflow-x-auto">
     <table class="min-w-full text-sm text-white rounded-lg overflow-hidden">
@@ -34,7 +35,7 @@
                 <td class="px-4 py-3 text-gray-400">{{ $user->created_at?->format('d M Y') ?? 'N/A' }}</td>
                 <td class="px-4 py-3 space-x-2">
                 
-                <form action="#" method="POST" class="inline-block">
+                <form action="{{route('admin.deleteUser', ['id' => $user->id])}}" method="POST" class="inline-block">
                 @csrf
                 @method('DELETE')
                 <button type="submit"
@@ -52,9 +53,9 @@
             </tr>
             @endforelse
         </tbody>
-    </table>
+        </table>
+        </div>
     </div>
 </div>
-</section>
 
 @endsection

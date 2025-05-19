@@ -110,7 +110,7 @@ class FutsalController extends Controller
         
         $totalBookings = Book::where('user_id', $user->id)->count();
         
-        $upcomingBookings = Book::where('user_id', $user->id)
+        $upcomingBookings = Book::where('user_id', $user->id)->with('court')
                             ->where('date', '>=', now())
                             ->orderBy('date', 'asc')
                             ->get();
@@ -140,15 +140,14 @@ class FutsalController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        // $remember = $request->filled('remember');
+        $remember = $request->filled('remember');
         
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        if (Auth::attempt($credentials, $remember)) {
+            // $request->session()->regenerate();
 
             return redirect()->route('userDashboard', Auth::user()->id)->with('success', 'You have successfully logged in.');
         } 
         else {
-            session()->flash('error', 'Invalid credentials.');
             return redirect()->back();
         }
     }

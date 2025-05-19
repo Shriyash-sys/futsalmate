@@ -90,7 +90,7 @@
         @forelse ($userName as $user)
           <tr class="border-t border-gray-800">
             <td class="p-2">{{ $user->user?->full_name ?? 'N/A' }}</td>
-            <td class="p-2">{{ $user->court ?? 'N/A' }}</td>
+            <td class="p-2">{{ $user->court->court_name ?? 'N/A' }}</td>
             <td class="p-2">{{ $user->date ?? 'N/A' }}</td>
             <td class="p-2">{{ $user->time ?? 'N/A' }}</td>
             <td class="p-2">{{ $user->price ?? 'N/A' }}</td>

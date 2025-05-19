@@ -11,9 +11,8 @@
 
                 <div class="px-4 sm:px-6 md:px-8">
                     <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
-                        @if($bookings->isNotEmpty())
-                            <ul class="divide-y divide-gray-200">
-                                @foreach ($bookings as $key => $booking)
+                        <ul class="divide-y divide-gray-200">
+                            @forelse ($bookings as $booking)
                                 <li class="px-4 py-5 sm:px-6 hover:bg-gray-50 transition duration-150 ease-in-out">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center space-x-4">
@@ -21,11 +20,11 @@
                                                 C{{ $loop->iteration }}
                                             </div>
                                             <div>
-                                                <h3 class="text-lg font-medium text-gray-900">{{ $booking->court }}</h3>
+                                                <h3 class="text-lg font-medium text-gray-900">{{ $booking->court->court_name }}</h3>
                                                 <p class="text-sm text-gray-500">{{ $booking->id }}</p>
-<p class="text-sm text-gray-400">
-    {{ $booking->court->location }}
-</p>
+                                                <p class="text-sm text-gray-400">
+                                                    {{ $booking->court->location ?? 'N/A' }}
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -38,16 +37,19 @@
                                                 <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                                     View
                                                 </button>
-                                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                    Cancel
+                                                <form action="{{route('deleteBooking')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none">
+                                                    Delete
                                                 </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                @endforeach
                             </ul>
-                        @else
+                        @empty
                             <!-- Empty State -->
                             <div class="px-6 py-12 text-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,7 +63,7 @@
                                     </a>
                                 </div>
                             </div>
-                        @endif
+                        @endforelse
                     </div>
                 </div>
             </div>

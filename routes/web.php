@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/booking-confirmation/{id}', [BookController::class, 'showBookingConfirmation'])->name('bookingConfirmation');
 
+    Route::delete('/delete-booking', [BookController::class, 'cancelBooking'])->name('deleteBooking');
+
 });
 
 Route::get('/admin', [AdminController::class, 'showAdminLoginForm'])->name('admin');
@@ -58,7 +60,7 @@ Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin
 
 Route::middleware('auth:admin')->group(function () {
 
-Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
     
     Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logouts');
     
@@ -73,10 +75,12 @@ Route::get('/admin/dashboard', [AdminController::class, 'showAdminDashboard'])->
     Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
     
     Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
-
+    
     Route::post('/admin/admin-profile-photo', [AdminController::class, 'addAdminProfilePhoto'])->name('admin.addAdminProfilePhoto');
 
     Route::delete('/admin/delete-profile-photo', [AdminController::class, 'deleteAdminProfilePhoto'])->name('admin.deleteAdminProfilePhoto');
+
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
 });
 
 

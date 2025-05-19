@@ -3,10 +3,10 @@
 @section('conduct')
 
 <!-- Main Content -->
-<div class="h-full w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
+<div class="min-h-screen w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
 
     <!-- My Courts Section -->
-    <div class="w-full max-w-6xl bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
+    <div class="w-full bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
     
         <!-- Header with Title -->
         <div class="p-6 flex justify-between items-center border-b border-gray-800">
@@ -22,6 +22,7 @@
                         <th class="py-3 px-4 text-left">Court Name</th>
                         <th class="py-3 px-4 text-left">Location</th>
                         <th class="py-3 px-4 text-left">Price</th>
+                        <th class="py-3 px-4 text-left">Description</th>
                         <th class="py-3 px-4 text-center">Actions</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                             <td class="py-3 px-4">{{ $court->court_name }}</td>
                             <td class="py-3 px-4">{{ $court->location }}</td>
                             <td class="py-3 px-4 text-green-400">Rs. {{ number_format($court->price, 2) }}</td>
+                            <td class="py-3 px-4">{{ $court->description }}</td>
                             <td class="py-3 px-4 text-center">
                                 <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded transition duration-200">Edit</button>
                                 <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded ml-2 transition duration-200">Delete</button>

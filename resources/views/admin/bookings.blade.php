@@ -3,15 +3,14 @@
 @section('conduct')
 
 <!-- Main Content -->
-<div class="h-full w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
+<div class="min-h-screen w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
 
     <!-- Bookings Section -->
-    <div class="w-full max-w-6xl bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
+    <div class="w-full bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
     
         <!-- Header -->
         <div class="p-6 flex justify-between items-center border-b border-gray-800">
             <h2 class="text-3xl font-bold text-white">Bookings</h2>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition duration-200">+ New Booking</button>
         </div>
 
         <!-- Bookings Table -->
@@ -33,7 +32,7 @@
                     @forelse ($bookings as $booking)
                         <tr class="border-t border-gray-800 hover:bg-gray-800/50 transition duration-150">
                             <td class="py-3 px-4">{{ $booking->user->full_name ?? 'N/A' }}</td>
-                            <td class="py-3 px-4">{{ $booking->court ?? 'N/A' }}</td>
+                            <td class="py-3 px-4">{{ $booking->court->court_name ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->date ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->time ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->price ?? 'N/A' }}</td>
@@ -41,7 +40,7 @@
                             <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
                             <td class="py-3 px-4 text-center space-x-2">
                                 <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded transition">Edit</button>
-                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded transition">Cancel</button>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded transition">Delete</button>
                                 <button class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-1 rounded transition">View</button>
                             </td>
                         </tr>

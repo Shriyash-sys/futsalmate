@@ -29,7 +29,7 @@
                                     </div>
                                     <div>
                                         <dt class="text-sm font-medium text-gray-500">Court</dt>
-                                        <dd class="mt-1 text-sm text-gray-900">{{$booking->court}}</dd>
+                                        <dd class="mt-1 text-sm text-gray-900">{{$booking->court->court_name}}</dd>
                                     </div>
                                     <div>
                                         <dt class="text-sm font-medium text-gray-500">Date</dt>
