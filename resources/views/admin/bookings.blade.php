@@ -40,7 +40,14 @@
                             <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
                             <td class="py-3 px-4 text-center space-x-2">
                                 <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded transition">Edit</button>
-                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded transition">Delete</button>
+                                <form action="{{route('admin.cancelBookings', ['id' => $user->id])}}" method="POST" class="inline-block">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded transition">
+                                        Delete
+                                    </button>
+                                </form>
                                 <button class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-1 rounded transition">View</button>
                             </td>
                         </tr>

@@ -61,14 +61,14 @@
                     </div>
                     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                         <ul class="divide-y divide-gray-200">
-                        <!-- Booking 1 -->
+                        <!-- Bookings -->
                         @forelse ($upcomingBookings as $upcomingBooking)
                             <li class="hover:bg-gray-50 transition-colors duration-150">
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                     <div class="flex items-center mb-3 sm:mb-0">
                                         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                            <span class="text-secondary font-bold">C1</span>
+                                            <span class="text-secondary font-bold">C{{ $loop->iteration }}</span>
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{$upcomingBooking->court->court_name}}</div>
@@ -92,7 +92,7 @@
                                         <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                                         </svg>
-                                            Main Branch
+                                            {{$upcomingBooking->court->location}}
                                     </div>
                                     <div class="mt-2 sm:mt-0 flex space-x-2">
                                         <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none">
@@ -103,8 +103,8 @@
                                 </div>
                             </div>
                         </li>
-                        </ul>
                         @empty
+                    </ul>
                             <div class="px-6 py-12 text-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

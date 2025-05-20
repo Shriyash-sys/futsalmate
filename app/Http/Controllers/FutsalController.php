@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Court;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
@@ -20,7 +21,9 @@ class FutsalController extends Controller
      */
     public function index()
     {
-        return view('index');
+
+        $courts = Court::limit(3)->get();
+        return view('index', compact('courts'));
     }
 
     /**
@@ -72,19 +75,31 @@ class FutsalController extends Controller
         //
     }
 
+    // ----------------------------------------User Book Court----------------------------------------
+
+
     public function showBookCourt() {
 
         $courts = Court::paginate();
         return view('users.booking', compact('courts'));
     }
 
+    // ----------------------------------------User LoginForm----------------------------------------
+
+
     public function showLoginForm() {
         return view('users.auth.login');
     }
 
+    // ----------------------------------------User SignupForm----------------------------------------
+
+
     public function showSignupForm() {
         return view('users.auth.sign');
     }
+
+    // ----------------------------------------User My Bookings----------------------------------------
+
 
     public function showMyBookings() {
         $user = Auth::user();
@@ -99,10 +114,16 @@ class FutsalController extends Controller
         return view('users.mybooking', compact('user', 'bookings'));
     }
 
+    // ----------------------------------------User profile----------------------------------------
+
+
     public function showProfile() {
         $user = Auth::user();
         return view('users.profile', compact('user'));
     }
+
+    // ----------------------------------------User Dashboard----------------------------------------
+
 
     public function userDashboard() {
 
@@ -111,12 +132,15 @@ class FutsalController extends Controller
         $totalBookings = Book::where('user_id', $user->id)->count();
         
         $upcomingBookings = Book::where('user_id', $user->id)->with('court')
-                            ->where('date', '>=', now())
+                            ->where('time', '>=', now())
                             ->orderBy('date', 'asc')
                             ->get();
 
         return view('users.dashboard', compact('user', 'totalBookings', 'upcomingBookings'));
     }
+
+    // ----------------------------------------User signup----------------------------------------
+
 
     public function register(FutsalRequest $request) {
 
@@ -133,6 +157,9 @@ class FutsalController extends Controller
         // return redirect()->route('login');
         return redirect()->route('userDashboard', $user->id);
     }   
+
+    // ----------------------------------------User login----------------------------------------
+
 
     public function login(LoginRequest $request) {
 
@@ -151,6 +178,9 @@ class FutsalController extends Controller
             return redirect()->back();
         }
     }
+
+    // ----------------------------------------User logout----------------------------------------
+
 
     public function logout(Request $request)
     {

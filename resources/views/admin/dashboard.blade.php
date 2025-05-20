@@ -47,6 +47,7 @@
         <li class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="flex-1 font-medium">{{ $court->court_name ?? 'Unnamed Court' }}</div>
           <div class="flex-1 text-sm text-gray-300">{{ $court->location ?? 'N/A' }}</div>
+          <div class="flex-1 text-sm text-gray-300">{{ $court->description ?? 'N/A' }}</div>
           <div class="text-sm text-gray-400">{{ $court->price ?? 'N/A' }}/hr</div>
         </li>
       @empty

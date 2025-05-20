@@ -41,14 +41,20 @@ class AdminController extends Controller
             return redirect()->route('admin')->withErrors('Please login first.');
         }
 
+        $adminId = Auth::id();
         $courtIds = Court::where('admin_id', $admin->id)->pluck('id');
         $bookings = Book::whereIn('court_id', $courtIds)->count();
 
         $courts = Court::where('admin_id', $admin->id)->count();
         $courtName = Court::where('admin_id', $admin->id)->limit(3)->get();
-        $userName = Book::with(['user', 'court'])->latest()->limit(3)->get();
+        
+        $userName = Book::with(['user', 'court'])
+            ->whereHas('court', function ($query) use ($adminId) {
+                $query->where('admin_id', $adminId);
+            })
+            ->latest()->get(); // eager load related data
 
-        $adminId = $admin->id;
+        // $adminId = $admin->id;
 
         $totalRevenue = Book::whereHas('court', function ($query) use ($adminId) {
                 $query->where('admin_id', $adminId);
@@ -79,7 +85,14 @@ class AdminController extends Controller
     public function showAdminBookings() 
     {
 
-        $bookings = Book::with(['user', 'court'])->latest()->get(); // eager load related data
+        $adminId = Auth::id();
+        
+        $bookings = Book::with(['user', 'court'])
+            ->whereHas('court', function ($query) use ($adminId) {
+                $query->where('admin_id', $adminId);
+            })
+            ->latest()->get(); // eager load related data
+
         return view('admin.bookings', compact('bookings'));
     }
 
@@ -286,11 +299,22 @@ class AdminController extends Controller
     {
         $admin = Auth::guard('admin')->user();
 
-        $user = User::get();
-        $user->delete($id);
+        $user = User::findOrFail($id);
+        $user->delete();
 
         return redirect()->route('admin.users',compact('user'));
     }
 
+    // ----------------------------Admin Delete Booking-------------------------
+
+    public function adminCancelBooking() 
+    {
+
+        $user = User::auth();
+        $userBooking = Book::where('user_id', $user->id)->get();
+        $userBooking = $user->delete();
+
+        return redirect()->route('admin.bookings', compact('userBooking'));
+    }
 }
 

@@ -46,7 +46,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/booking-confirmation/{id}', [BookController::class, 'showBookingConfirmation'])->name('bookingConfirmation');
 
-    Route::delete('/delete-booking', [BookController::class, 'cancelBooking'])->name('deleteBooking');
+    Route::delete('/delete-booking/{id}', [BookController::class, 'cancelBooking'])->name('deleteBooking');
+
+    Route::get('/view-booking/{id}', [BookController::class, 'viewBooking'])->name('viewBooking');
+
+    Route::get('/edit-booking-form/{id}', [BookController::class, 'editBookingForm'])->name('editBookingForm');
+
+    Route::put('/edit-booking/{id}', [BookController::class, 'editBooking'])->name('editBooking');
 
 });
 
@@ -81,6 +87,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::delete('/admin/delete-profile-photo', [AdminController::class, 'deleteAdminProfilePhoto'])->name('admin.deleteAdminProfilePhoto');
 
     Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+
+    Route::delete('/admin/delete-bookings/{id}', [AdminController::class, 'adminCancelbooking'])->name('admin.cancelBookings');
 });
 
 
