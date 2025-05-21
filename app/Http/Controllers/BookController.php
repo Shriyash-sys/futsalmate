@@ -71,6 +71,7 @@ class BookController extends Controller
     {
         
         $viewBooking = Book::with('court')->findOrFail($id);
+        // $editForm = Book::with('court')->findOrFail($id);
         return view('users.viewBooking', compact('viewBooking'));
 
     }
@@ -86,6 +87,6 @@ class BookController extends Controller
 
         $editBooking = Book::with('court')->findOrFail($id);
         $editBooking->update($request->all());
-        return redirect()->route('viewBooking', compact('editBooking'));
+        return redirect()->route('viewBooking', ['id' => $editBooking->id]);
     }
 }

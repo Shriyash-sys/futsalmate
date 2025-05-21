@@ -78,7 +78,7 @@
             <a href="{{ route('mybookings', auth()->user()->id) }}" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg text-base font-medium transition">
                 Back
             </a>
-            <a href="{{ route('editBookingForm', $editForm->$id)}}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-base font-medium transition">
+            <a href="{{ route('editBookingForm', $viewBooking->id)}}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-base font-medium transition">
                 Edit
             </a>
         </div>
