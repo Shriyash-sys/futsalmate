@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
-            $table->string('court')->nullable();
             $table->string('payment')->nullable();
+            $table->integer('price');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('court_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

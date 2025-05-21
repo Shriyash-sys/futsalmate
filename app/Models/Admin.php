@@ -15,6 +15,7 @@ class Admin extends Authenticatable
         'full_name',
         'email',
         'password',
+        'profile_photo',
     ];
 
     protected $hidden = [
@@ -22,6 +23,6 @@ class Admin extends Authenticatable
     ];
 
     public function court() {
-        return $this->belongsTo(Court::class);
+        return $this->hasMany(Court::class);
     }
 }

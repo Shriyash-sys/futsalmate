@@ -7,6 +7,7 @@
         <a href="{{route('admin.dashboard')}}" class="block py-2 px-3 rounded hover:bg-gray-800">Dashboard</a>
         <a href="{{route('admin.mycourts')}}" class="block py-2 px-3 rounded hover:bg-gray-800">My Courts</a>
         <a href="{{route('admin.bookings')}}" class="block py-2 px-3 rounded hover:bg-gray-800">Bookings</a>
+        <a href="{{route('admin.users')}}" class="block py-2 px-3 rounded hover:bg-gray-800">Users</a>
         <a href="{{route('admin.profile')}}" class="block py-2 px-3 rounded hover:bg-gray-800">Profile</a>
         <form action="{{ route('admin.logouts') }}" method="POST">
         @csrf
