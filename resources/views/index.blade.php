@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<body class="bg-gray-100">
+
     
 <!-- Hero Section -->
 <section class="hero-pattern text-white py-20">
@@ -24,6 +24,55 @@
 <!-- Features Section -->
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
+
+          <h2 class="text-3xl font-bold text-center mb-12">Why Choose <span class="text-primary">Futsal Mate</span>?</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                  <div class="text-primary mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-semibold mb-2">Quick Booking</h3>
+                  <p class="text-gray-600">Book your favorite court in less than a minute. No hassle, no waiting.</p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                  <div class="text-primary mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-semibold mb-2">Multiple Payment Options</h3>
+                  <p class="text-gray-600">Pay with eSewa, Khalti, or cash. Choose what works best for you.</p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+                  <div class="text-primary mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                  </div>
+                  <h3 class="text-xl font-semibold mb-2">Manage Bookings</h3>
+                  <p class="text-gray-600">View, edit, or cancel your bookings anytime. Full control at your fingertips.</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Courts Section -->
+  <section id="courts" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12">Our Premium <span class="text-primary">Courts</span></h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- Court 1 -->
+              <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1542144582-1ba00456b5e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Court 1" class="w-full h-48 object-cover">
+                  <div class="p-6">
+                      <h3 class="text-xl font-semibold mb-2">Court Alpha</h3>
+                      <p class="text-gray-600 mb-4">Professional-grade synthetic turf with premium lighting.</p>
+                      <div class="flex justify-between items-center">
+                          <span class="text-primary font-bold">Rs. 1,200/hr</span>
+                          <a href="booking.html" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-4 rounded-lg transition duration-300">Book Now</a>
+
         <h2 class="text-3xl font-bold text-center mb-12">Why Choose <span class="text-primary">Futsal Mate</span>?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
@@ -31,6 +80,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
+
                     </div>
                     <h3 class="text-xl font-semibold mb-2">Quick Booking</h3>
                     <p class="text-gray-600">Book your favorite court in less than a minute. No hassle, no waiting.</p>
