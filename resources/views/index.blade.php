@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<body class="bg-gray-100">
+
     
 <!-- Hero Section -->
 <section class="hero-pattern text-white py-20">
@@ -58,7 +58,7 @@
   </section>
 
   <!-- Courts Section -->
-  <section class="py-16 bg-gray-100">
+  <section id="courts" class="py-16 bg-gray-100">
       <div class="container mx-auto px-4">
           <h2 class="text-3xl font-bold text-center mb-12">Our Premium <span class="text-primary">Courts</span></h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
