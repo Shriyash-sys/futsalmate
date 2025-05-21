@@ -62,7 +62,6 @@ body {
                 <div>
                     <div class="flex items-center justify-between mb-1">
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <a href="#" class="text-sm text-primary hover:text-primary-dark">Forgot password?</a>
                     </div>
                     <input type="password" id="password" name="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary">
                 </div>
@@ -70,6 +69,14 @@ body {
                     <input type="checkbox" id="remember" name="remember" value="true" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
                     <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
                 </div> --}}
+
+                <div class="flex items-center justify-between text-sm text-gray-400">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox text-blue-600 bg-gray-800 border-gray-700 rounded"/>
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-primary hover:text-primary-dark">Forgot password?</a>
+                </div>
                 <div>
                     <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-secondary font-bold py-3 px-4 rounded-lg transition duration-300">Login</button>
                 </div>

@@ -21,10 +21,50 @@
                             </div>
                         @endif
                         @csrf
-                        <!-- Step 1: Select Date and Time -->
+
+                        <!-- Step 1: Select Court -->
+<div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
+    <div class="px-4 py-5 sm:px-6 bg-secondary text-white">
+        <h3 class="text-lg leading-6 font-medium">Step 1: Select Court</h3>
+        <p class="mt-1 max-w-2xl text-sm">Choose your preferred court</p>
+    </div>
+    
+        @forelse ($courts as $court)
+        <div class="px-4 py-5 sm:p-6">
+            <div class="grid grid-cols-1 gap-4">
+                <div class="relative flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="court{{$court->id}}" name="court_id" type="radio"
+                            class="focus:ring-primary h-4 w-4 text-primary border-gray-300"
+                            value="{{$court->id}}" required>
+                    </div>
+                        <div class="ml-3 flex justify-between w-full">
+                            <div>
+                                <label for="court{{$court->id}}" class="font-medium text-gray-700">{{$court->court_name}}</label>
+                                <p class="text-gray-500">{{$court->location}}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-primary font-bold">{{$court->price}}/hr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <!-- Improved Empty State -->
+            <div class="px-6 py-12 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-700">No Courts Available</h3>
+                <p class="mt-2 text-gray-500">We couldn't find any courts right now.</p>
+            </div>
+        @endforelse
+    </div>
+                        <!-- Step 2: Select Date and Time -->
                         <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
                             <div class="px-4 py-5 sm:px-6 bg-secondary text-white">
-                                <h3 class="text-lg leading-6 font-medium">Step 1: Select Date and Time</h3>
+                                <h3 class="text-lg leading-6 font-medium">Step 2: Select Date and Time</h3>
                                 <p class="mt-1 max-w-2xl text-sm">Choose when you want to play</p>
                             </div>
                             <div class="px-4 py-5 sm:p-6">
@@ -33,6 +73,7 @@
                                         <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
                                         <input type="date" name="date" id="date"
                                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                            min="{{ \Carbon\Carbon::today()->toDateString() }}"
                                             required>
                                     </div>
                                     <div>
@@ -63,49 +104,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Step 2: Select Court -->
-<div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
-    <div class="px-4 py-5 sm:px-6 bg-secondary text-white">
-        <h3 class="text-lg leading-6 font-medium">Step 2: Select Court</h3>
-        <p class="mt-1 max-w-2xl text-sm">Choose your preferred court</p>
-    </div>
-    
-    @if($courts->isNotEmpty())
-        @foreach ($courts as $court)
-        <div class="px-4 py-5 sm:p-6">
-            <div class="grid grid-cols-1 gap-4">
-                <div class="relative flex items-start">
-                    <div class="flex items-center h-5">
-                        <input id="court{{$court->id}}" name="court_id" type="radio"
-                            class="focus:ring-primary h-4 w-4 text-primary border-gray-300"
-                            value="{{$court->id}}" required>
-                    </div>
-                    <div class="ml-3 flex justify-between w-full">
-                        <div>
-                            <label for="court{{$court->id}}" class="font-medium text-gray-700">{{$court->court_name}}</label>
-                            <p class="text-gray-500">{{$court->location}}</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-primary font-bold">{{$court->price}}/hr</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        {{ $courts->links() }}
-    @else
-        <!-- Improved Empty State -->
-        <div class="px-6 py-12 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h3 class="mt-4 text-lg font-medium text-gray-700">No Courts Available</h3>
-            <p class="mt-2 text-gray-500">We couldn't find any courts right now.</p>
-        </div>
-    @endif
-</div>
+                        
                         <!-- Step 3: Payment Method -->
                         <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
                             <div class="px-4 py-5 sm:px-6 bg-secondary text-white">

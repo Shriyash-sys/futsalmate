@@ -22,7 +22,7 @@ class BookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'time' => 'required|string|max:255',
             'court_id' => 'required|exists:courts,id',
             'payment' => 'required|string|in:esewa,khalti,cash',

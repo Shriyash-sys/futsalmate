@@ -12,6 +12,18 @@ class BookController extends Controller
 {
     public function bookCourt(BookRequest $request)
     {
+        // Check if the court is already booked at the same date and time
+        $existingBooking = Book::where('court_id', $request->court_id)
+            ->where('date', $request->date)
+            ->where('time', $request->time)
+            ->first();
+
+        if ($existingBooking) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['time' => 'This court is already booked at the selected date and time.']);
+        }
+
         $booking = new Book([
         'date' => $request->date,
         'time' => $request->time,
@@ -32,8 +44,49 @@ class BookController extends Controller
 
     public function showBookingConfirmation($id) {
 
-        $courts = Court::paginate();
+        // $courts = Court::paginate();
         $booking = Book::with('court')->findOrFail($id);
-        return view('users.bookingConfirmation', compact('booking', 'courts'));
+        // dd($booking);
+        return view('users.bookingConfirmation', compact('booking'));
+    }
+
+    public function cancelBooking($id) 
+    {
+        $user = Auth::user();
+        $bookings = Book::where('id', $id)->where('user_id', $user->id)->first();
+
+        if ($bookings) {
+            
+            $bookings->delete();
+            return redirect()->route('mybookings')->with('success', 'Booking cancelled.');
+        } else {
+            
+            return redirect()->route('mybookings')->with('error', 'Booking not found or not authorized.');
+        }
+
+        return redirect()->route('mybookings',compact('bookings'));
+    }
+
+    public function viewBooking($id) 
+    {
+        
+        $viewBooking = Book::with('court')->findOrFail($id);
+        // $editForm = Book::with('court')->findOrFail($id);
+        return view('users.viewBooking', compact('viewBooking'));
+
+    }
+
+    public function editBookingForm($id) 
+    {
+        $editForm = Book::with('court')->findOrFail($id);
+        return view('users.editBooking', compact('editForm'));
+    }
+
+    public function editBooking(BookRequest $request, $id) 
+    {
+
+        $editBooking = Book::with('court')->findOrFail($id);
+        $editBooking->update($request->all());
+        return redirect()->route('viewBooking', ['id' => $editBooking->id]);
     }
 }

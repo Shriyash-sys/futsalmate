@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();                        
+            $table->rememberToken();  
+            $table->string('profile_photo_path')->nullable();
+            $table->string('profile_photo_url')->nullable();                      
             $table->timestamps();
         });
     }

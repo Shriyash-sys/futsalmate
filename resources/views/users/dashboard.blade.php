@@ -51,147 +51,70 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Additional stat cards can go here -->
                 </div>
 
-                <!-- Upcoming Bookings - Hardcoded Version -->
-<div class="mt-8">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-medium text-gray-900">Upcoming Bookings</h2>
-        <a href="#" class="text-sm font-medium text-primary hover:text-primary-dark">View all →</a>
-    </div>
-
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <ul class="divide-y divide-gray-200">
-            <!-- Booking 1 -->
-            <li class="hover:bg-gray-50 transition-colors duration-150">
-                <div class="px-4 py-4 sm:px-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex items-center mb-3 sm:mb-0">
-                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                <span class="text-secondary font-bold">C1</span>
-                            </div>
-                            <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">Court</div>
-                                <div class="text-sm text-gray-500">12345</div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col sm:items-end">
-                            <div class="text-sm font-medium text-gray-900">
-                                Sat, Jun 17 • 17:00 - 19:00
-                            </div>
-                            <div class="mt-1 sm:mt-0">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Confirmed
-                                </span>
-                            </div>
-                        </div>
+            <!-- Upcoming Bookings -->
+                <div class="mt-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-medium text-gray-900">Upcoming Bookings</h2>
+                        <a href="{{route('mybookings')}}" class="text-sm font-medium text-primary hover:text-primary-dark">View all →</a>
                     </div>
-                    <div class="mt-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            Main Branch
-                        </div>
-                        <div class="mt-2 sm:mt-0 flex space-x-2">
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none">
-                                View
-                            </button>
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Booking 2 -->
-            <li class="hover:bg-gray-50 transition-colors duration-150">
-                <div class="px-4 py-4 sm:px-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex items-center mb-3 sm:mb-0">
-                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                <span class="text-secondary font-bold">C2</span>
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                        <ul class="divide-y divide-gray-200">
+                        <!-- Bookings -->
+                        @forelse ($upcomingBookings as $upcomingBooking)
+                            <li class="hover:bg-gray-50 transition-colors duration-150">
+                            <div class="px-4 py-4 sm:px-6">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <div class="flex items-center mb-3 sm:mb-0">
+                                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
+                                            <span class="text-secondary font-bold">C{{ $loop->iteration }}</span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">{{$upcomingBooking->court->court_name}}</div>
+                                            <div class="text-sm text-gray-500">{{$upcomingBooking->id}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col sm:items-end">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <p class="text-sm text-gray-600">{{ $upcomingBooking->date }}</p>
+                                            <p class="text-sm font-semibold text-gray-800">{{ $upcomingBooking->time }}</p>
+                                        </div>
+                                        <div class="mt-1 sm:mt-0">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                Confirmed
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                    <div class="flex items-center text-sm text-gray-500">
+                                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                        </svg>
+                                            {{$upcomingBooking->court->location}}
+                                    </div>
+                                    <div class="mt-2 sm:mt-0 flex space-x-2">
+                                        <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none">
+                                            View
+                                        </button>
+                                        
+                                    </div>
+                                </div>
                             </div>
-                            <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">Court Beta</div>
-                                <div class="text-sm text-gray-500">Booking #BK12346</div>
+                        </li>
+                        @empty
+                    </ul>
+                            <div class="px-6 py-12 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <h3 class="mt-4 text-lg font-medium text-gray-700">No Upcoming Bookings</h3>
+                                <p class="mt-2 text-gray-500">You don't have any upcoming bookings.</p>
                             </div>
-                        </div>
-                        <div class="flex flex-col sm:items-end">
-                            <div class="text-sm font-medium text-gray-900">
-                                Sat, Jun 17 • 17:00 - 19:00
-                            </div>
-                            <div class="mt-1 sm:mt-0">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Confirmed
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            Downtown Branch
-                        </div>
-                        <div class="mt-2 sm:mt-0 flex space-x-2">
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none">
-                                View
-                            </button>
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none">
-                                Cancel
-                            </button>
-                        </div>
+                            @endforelse
                     </div>
                 </div>
-            </li>
-
-            <!-- Booking 3 -->
-            <li class="hover:bg-gray-50 transition-colors duration-150">
-                <div class="px-4 py-4 sm:px-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex items-center mb-3 sm:mb-0">
-                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                <span class="text-secondary font-bold">C3</span>
-                            </div>
-                            <div class="ml-4">
-                                <div class="text-sm font-medium text-gray-900">Court Beta</div>
-                                <div class="text-sm text-gray-500">1425</div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col sm:items-end">
-                            <div class="text-sm font-medium text-gray-900">
-                                Sat, Jun 17 • 17:00 - 19:00
-                            </div>
-                            <div class="mt-1 sm:mt-0">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    Pending
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                        <div class="flex items-center text-sm text-gray-500">
-                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            Westside Branch
-                        </div>
-                        <div class="mt-2 sm:mt-0 flex space-x-2">
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none">
-                                View
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
 
 <script>
     // Mobile menu toggle

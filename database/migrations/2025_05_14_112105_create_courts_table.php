@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->string('image_url')->nullable();
             $table->text('description')->nullable();
+            $table->foreignId('admin_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

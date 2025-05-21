@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('terms')->default(false);
+            $table->string('profile_photo_path')->nullable();
+            $table->string('profile_photo_url')->nullable();
             $table->timestamps();
         });
 
