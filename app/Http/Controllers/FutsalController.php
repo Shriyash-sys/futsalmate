@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Court;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\LoginRequest;
@@ -39,7 +40,15 @@ class FutsalController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $validated = $request->validate([
+            'full_name'=> 'required|string|max:255',
+            'email'=> 'required|email|max:255',
+            'phone'=> 'required|string|max:15',
+            'subject'=> 'required',
+            'message'=> 'required|string|max:1000'
+        ]);
+            Contact::create($validated);
+            return redirect()->back(); 
     }
 
     /**

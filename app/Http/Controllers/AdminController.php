@@ -9,6 +9,7 @@ use App\Models\Court;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -234,7 +235,6 @@ class AdminController extends Controller
 
         $court->admin_id = Auth::guard('admin')->id();
     
-
         $court->save();
 
         return redirect()->route('admin.mycourts');
@@ -384,7 +384,7 @@ class AdminController extends Controller
         
             // Delete old image if it exists
         
-            if ($editCourt->image_path && Storage::exists('storage/court_images/' . $editCourt->image_path)) {
+            if ($editCourt->image_path && Storage::disk('public')->exists($editCourt->image_path)) {
             
                 Storage::disk('public')->delete('storage/court_images/' . $editCourt->image_path);
             
@@ -394,12 +394,55 @@ class AdminController extends Controller
         $image = $request->file('image')->store('images', 'public');
         $editCourt->image_path = $image;
         $editCourt->image_url = Storage::url($image);
+    }
 
         $editCourt->save();
-    }
         return redirect()->route('admin.viewMyCourt', ['id' => $editCourt->id]);
 
     }
 
+    // ----------------------------Admin Show Edit Profile Form-------------------------
+
+    public function showAdminEditProfileForm($id)
+    {
+        $admin = Admin::findOrFail($id);
+
+        return view('admin.editprofile', compact('admin'));
+    }
+
+    // ----------------------------Admin Edit Profile -------------------------
+
+    public function adminEditProfile(Request $request, $id)
+    {
+        $admin = Admin::findOrFail($id);  
+        
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email',
+        ]);
+
+        $admin->full_name = $validated['full_name'];
+        $admin->email = $validated['email'];
+        
+        if ($request->filled('current_password')) {
+            
+            if (!Hash::check($request->current_password, $admin->password)) {
+                
+                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            }
+
+            $request->validate([
+                'new_password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $admin->password = Hash::make($request->new_password);
+        }
+
+        $admin->save();
+        
+        return redirect()->route('admin.profile', ['id' => $admin->id])->with('success', 'Profile updated successfully!');
+    }
+
 }
+
 

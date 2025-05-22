@@ -104,10 +104,9 @@
             <!-- Mobile Sidebar -->
             <div id="mobile-sidebar" class="fixed inset-0 z-40 hidden md:hidden">
                 <div class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
-                <div class="relative flex-1 flex flex-col max-w-xs w-full bg-secondary">
-                    <div class="absolute top-0 right-0 -mr-12 pt-2">
-                        <button id="close-sidebar" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                            <span class="sr-only">Close sidebar</span>
+                <div class="relative flex-1 flex flex-col w-full bg-secondary ">
+                    <div class="absolute top-0 right-0 mr-4 pt-2">
+                        <button id="close-sidebar" class="ml-1 mt-4 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -161,3 +160,18 @@
                 </div>
                 <div class="flex-shrink-0 w-14"></div>
             </div>
+
+<script>
+    // Mobile menu toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const closeSidebar = document.getElementById('close-sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+        mobileSidebar.classList.toggle('hidden');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+        mobileSidebar.classList.add('hidden');
+    });
+</script>

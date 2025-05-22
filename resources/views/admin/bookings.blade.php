@@ -3,14 +3,14 @@
 @section('conduct')
 
 <!-- Main Content -->
-<div class="min-h-screen w-full bg-gray-950 flex flex-col items-center pt-12 px-6">
+<div class="min-h-screen w-full bg-gray-950 flex flex-col items-center pt-12 mt-16 lg:mt-0 px-4 sm:px-6 lg:px-8">
 
     <!-- Bookings Section -->
-    <div class="w-full bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
-    
+    <div class="w-full max-w-7xl bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
+
         <!-- Header -->
-        <div class="p-6 flex justify-between items-center border-b border-gray-800">
-            <h2 class="text-3xl font-bold text-white">Bookings</h2>
+        <div class="p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-800">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white">Bookings</h2>
         </div>
 
         <!-- Bookings Table -->
@@ -23,9 +23,8 @@
                         <th class="py-3 px-4 text-left">Date</th>
                         <th class="py-3 px-4 text-left">Time</th>
                         <th class="py-3 px-4 text-left">Amount</th>
-                        <th class="py-3 px-4 text-left">Payment Status</th>
+                        <th class="py-3 px-4 text-left">Payment Method</th>
                         <th class="py-3 px-4 text-left">Status</th>
-                        {{-- <th class="py-3 px-4 text-center">Actions</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -38,17 +37,6 @@
                             <td class="py-3 px-4">{{ $booking->price ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->payment ?? 'N/A' }}</td>
                             <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
-                            {{-- <td class="py-3 px-4 text-center space-x-2">
-                                <form action="{{route('admin.cancelBookings', $booking->id)}}" method="POST" class="inline-block">
-                                @csrf
-                                @method('DELETE')
-                                    <button type="submit"
-                                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded transition">
-                                        Delete
-                                    </button>
-                                </form>
-                                <button class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-1 rounded transition">View</button>
-                            </td> --}}
                         </tr>
                     @empty
                         <tr>
