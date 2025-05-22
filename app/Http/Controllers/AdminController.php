@@ -325,6 +325,10 @@ class AdminController extends Controller
         return redirect()->route('admin.bookings', compact('bookings'));
     }
 
+
+    // ----------------------------Admin Delete Court-------------------------
+
+
     public function adminDeleteCourt($id) 
     {
 
@@ -334,6 +338,9 @@ class AdminController extends Controller
         return redirect()->route('admin.mycourts');
     }
 
+    // ----------------------------Admin View My Court-------------------------
+
+
     public function adminViewMyCourt($id) 
     {
         $court = Court::findOrFail($id);
@@ -342,12 +349,18 @@ class AdminController extends Controller
 
     }
 
+    // ----------------------------Admin Edit Court Form-------------------------
+
+
     public function adminEditCourtForm($id)
     {
         $court = Court::findOrFail($id);
 
         return view('admin.editmycourt', compact('court'));
     }
+
+    // ----------------------------Admin Edit My Court-------------------------
+
 
     public function adminEditMyCourt(Request $request, $id) 
     {
@@ -371,22 +384,19 @@ class AdminController extends Controller
         
             // Delete old image if it exists
         
-            if ($editCourt->image_path && Storage::exists('public/courts/' . $editCourt->image_path)) {
+            if ($editCourt->image_path && Storage::exists('storage/court_images/' . $editCourt->image_path)) {
             
-                Storage::disk('public')->delete('courts/' . $editCourt->image_path);
+                Storage::disk('public')->delete('storage/court_images/' . $editCourt->image_path);
             
             }
 
         // Store new image
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/courts', $imageName);
+        $image = $request->file('image')->store('images', 'public');
+        $editCourt->image_path = $image;
+        $editCourt->image_url = Storage::url($image);
 
-        $editCourt->image_path = $imageName;
-    }
-        
         $editCourt->save();
-
+    }
         return redirect()->route('admin.viewMyCourt', ['id' => $editCourt->id]);
 
     }

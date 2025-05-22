@@ -39,7 +39,6 @@
                             <td class="py-3 px-4">{{ $booking->payment ?? 'N/A' }}</td>
                             <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
                             {{-- <td class="py-3 px-4 text-center space-x-2">
-                                <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded transition">Edit</button>
                                 <form action="{{route('admin.cancelBookings', $booking->id)}}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')

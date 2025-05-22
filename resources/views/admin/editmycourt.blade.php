@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('conduct')
-<div class="min-h-screen bg-gray-900 py-12 px-6">
+<div class="min-h-screen bg-gray-950 py-12 px-6">
     <div class="max-w-3xl mx-auto bg-gray-800 text-white rounded-2xl shadow-lg p-10">
         <h1 class="text-3xl font-bold mb-8 border-b border-gray-700 pb-4">Edit Court</h1>
 

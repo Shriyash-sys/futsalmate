@@ -84,7 +84,7 @@
                     </div>
                 </form>
                 <div class="text-center mt-6">
-                    <p class="text-gray-600">Already have an account? <a href="login.html" class="text-primary hover:text-primary-dark font-medium">Login</a></p>
+                    <p class="text-gray-600">Already have an account? <a href="{{route('loginForm')}}" class="text-primary hover:text-primary-dark font-medium">Login</a></p>
                 </div>
             </div>
         </div>

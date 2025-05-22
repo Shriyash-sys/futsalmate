@@ -25,8 +25,8 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
 
-          <h2 class="text-3xl font-bold text-center mb-12">Why Choose <span class="text-primary">Futsal Mate</span>?</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Choose <span class="text-primary">Futsal Mate</span>?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
                   <div class="text-primary mb-4">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,56 +58,8 @@
       </div>
   </section>
 
-  <!-- Courts Section -->
-  <section id="courts" class="py-16 bg-gray-100">
-      <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-bold text-center mb-12">Our Premium <span class="text-primary">Courts</span></h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <!-- Court 1 -->
-              <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1542144582-1ba00456b5e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Court 1" class="w-full h-48 object-cover">
-                  <div class="p-6">
-                      <h3 class="text-xl font-semibold mb-2">Court Alpha</h3>
-                      <p class="text-gray-600 mb-4">Professional-grade synthetic turf with premium lighting.</p>
-                      <div class="flex justify-between items-center">
-                          <span class="text-primary font-bold">Rs. 1,200/hr</span>
-                          <a href="booking.html" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-4 rounded-lg transition duration-300">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Court 2 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1624880357913-a8539238245b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Court 2" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Court Beta</h3>
-                    <p class="text-gray-600 mb-4">Indoor court with air conditioning and premium facilities.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-primary font-bold">Rs. 1,500/hr</span>
-                        <a href="booking.html" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-4 rounded-lg transition duration-300">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Court 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1577416412292-f1b7b0e19fcd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Court 3" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Court Gamma</h3>
-                    <p class="text-gray-600 mb-4">Tournament-grade court with spectator seating and scoreboard.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-primary font-bold">Rs. 1,800/hr</span>
-                        <a href="booking.html" class="bg-secondary hover:bg-secondary-light text-white font-bold py-2 px-4 rounded-lg transition duration-300">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-10">
-            <a href="courts.html" class="inline-block bg-primary hover:bg-primary-dark text-secondary font-bold py-3 px-6 rounded-lg transition duration-300">View All Courts</a>
-        </div>
-    </div>
-</section>
-
 <!-- Courts Section -->
-<section class="py-16 bg-gray-100">
+<section class="py-16 bg-gray-100" id="courts">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Our Exclusive<span class="text-primary">Courts</span></h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
