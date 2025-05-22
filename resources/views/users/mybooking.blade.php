@@ -17,7 +17,7 @@
                                         <div class="flex items-center justify-between">
                                             <div class="flex items-center space-x-4">
                                                 <div class="flex-shrink-0 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-semibold">
-                                                    C{{ $loop->iteration }}
+                                                    {{ strtoupper(substr($booking->court->court_name, 0, 1)) }}
                                                 </div>
                                                 <div>
                                                     <h3 class="text-lg font-medium text-gray-900">{{ $booking->court->court_name }}</h3>
@@ -40,7 +40,7 @@
                                                     <form action="{{route('deleteBooking', $booking->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this booking?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none">
+                                                    <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                                         Delete
                                                     </button>
                                                     </form>

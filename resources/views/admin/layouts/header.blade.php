@@ -2,7 +2,9 @@
 
 <aside class="w-64 bg-gray-900 hidden md:block">
     <div class="p-6">
-        <h1 class="text-2xl font-bold mb-6">🏆 Admin Panel</h1>
+        <h4 class="text-xl font-bold mb-6">
+            <img src="{{ asset('logos/futsalmate_logo.png') }}" alt="futsalmatelogo" class="h-12 w-auto max-w-[120px] object-contain">
+        </h4>
         <nav class="space-y-2">
         <a href="{{route('admin.dashboard')}}" class="block py-2 px-3 rounded hover:bg-gray-800">Dashboard</a>
         <a href="{{route('admin.mycourts')}}" class="block py-2 px-3 rounded hover:bg-gray-800">My Courts</a>

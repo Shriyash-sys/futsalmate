@@ -79,8 +79,14 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/profile', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
     
     Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
+
+    Route::get('/admin/viewmycourt/{id}', [AdminController::class, 'adminViewMyCourt'])->name('admin.viewMyCourt');
+
+    Route::get('/admin/editmycourtform/{id}', [AdminController::class, 'adminEditCourtForm'])->name('admin.editMyCourtForm');
     
     Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
+
+    Route::put('/admin/edit-my-court/{id}', [AdminController::class, 'adminEditMyCourt'])->name('admin.editMyCourt');
     
     Route::post('/admin/admin-profile-photo', [AdminController::class, 'addAdminProfilePhoto'])->name('admin.addAdminProfilePhoto');
 
@@ -89,6 +95,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
 
     Route::delete('/admin/delete-bookings/{id}', [AdminController::class, 'adminCancelbooking'])->name('admin.cancelBookings');
+
+    Route::delete('/admin/delete-courts/{id}', [AdminController::class, 'adminDeleteCourt'])->name('admin.deleteCourt');
 });
 
 

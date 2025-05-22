@@ -307,14 +307,99 @@ class AdminController extends Controller
 
     // ----------------------------Admin Delete Booking-------------------------
 
-    public function adminCancelBooking() 
+    public function adminCancelBooking($id) 
     {
 
-        $user = User::auth();
-        $userBooking = Book::where('user_id', $user->id)->get();
-        $userBooking = $user->delete();
+        $admin = Auth::guard('admin')->user();
+        $bookings = Book::where('user_id', $admin->id)->first();
 
-        return redirect()->route('admin.bookings', compact('userBooking'));
+        if ($bookings) {
+            
+            $bookings->delete();
+            return redirect()->route('admin.bookings')->with('success', 'Booking cancelled.');
+        } else {
+            
+            return redirect()->route('admin.bookings')->with('error', 'Booking not found or not authorized.');
+        }
+
+        return redirect()->route('admin.bookings', compact('bookings'));
     }
+
+
+    // ----------------------------Admin Delete Court-------------------------
+
+
+    public function adminDeleteCourt($id) 
+    {
+
+        $admin = Auth::guard('admin')->user();
+
+        Court::findOrFail($id)->delete();
+        return redirect()->route('admin.mycourts');
+    }
+
+    // ----------------------------Admin View My Court-------------------------
+
+
+    public function adminViewMyCourt($id) 
+    {
+        $court = Court::findOrFail($id);
+
+        return view('admin.viewmycourt', compact('court'));
+
+    }
+
+    // ----------------------------Admin Edit Court Form-------------------------
+
+
+    public function adminEditCourtForm($id)
+    {
+        $court = Court::findOrFail($id);
+
+        return view('admin.editmycourt', compact('court'));
+    }
+
+    // ----------------------------Admin Edit My Court-------------------------
+
+
+    public function adminEditMyCourt(Request $request, $id) 
+    {
+        $editCourt = Court::findOrFail($id);
+        
+        $validated = $request->validate([
+            'court_name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required|string|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $editCourt->court_name = $validated['court_name'];
+        $editCourt->location = $validated['location'];
+        $editCourt->price = $validated['price'];
+        $editCourt->description = $validated['description'];
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+        
+            // Delete old image if it exists
+        
+            if ($editCourt->image_path && Storage::exists('storage/court_images/' . $editCourt->image_path)) {
+            
+                Storage::disk('public')->delete('storage/court_images/' . $editCourt->image_path);
+            
+            }
+
+        // Store new image
+        $image = $request->file('image')->store('images', 'public');
+        $editCourt->image_path = $image;
+        $editCourt->image_url = Storage::url($image);
+
+        $editCourt->save();
+    }
+        return redirect()->route('admin.viewMyCourt', ['id' => $editCourt->id]);
+
+    }
+
 }
 

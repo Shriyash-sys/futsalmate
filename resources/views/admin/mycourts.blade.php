@@ -35,7 +35,17 @@
                             <td class="py-3 px-4">{{ $court->description }}</td>
                             <td class="py-3 px-4 text-center">
                                 <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded transition duration-200">Edit</button>
-                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded ml-2 transition duration-200">Delete</button>
+                                <form action="{{route('admin.deleteCourt', $court->id)}}" method="POST" class="inline-block">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded ml-2 transition duration-200">
+                                        Delete
+                                    </button>
+                                </form>
+                                <a href="{{route('admin.viewMyCourt', $court->id)}}" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded ml-2 transition duration-200">
+                                    View
+                                </a>
                             </td>
                         </tr>
                     @empty

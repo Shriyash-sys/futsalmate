@@ -78,7 +78,7 @@
 
         <!-- Mobile Header & Nav -->
         <div class="flex flex-col flex-1 overflow-hidden">
-            <header class="flex items-center justify-between px-4 py-3 bg-white border-b md:hidden">
+            <header class="flex items-center justify-between px-4 py-3 bg-secondary-light border-b md:hidden">
                 <div class="flex items-center">
                     <button id="sidebar-toggle" class="text-gray-500 focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,17 +86,17 @@
                         </svg>
                     </button>
                     <div class="ml-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-2 font-bold text-lg">Futsal Mate</span>
+                        <div class="flex items-center">
+                            <img src="{{ asset('logos/futsalmate_logo.png') }}" alt="Futsal Mate Logo" class="h-12 w-auto max-w-[120px] object-contain">
+                        </div>
                     </div>
                 </div>
                 <div>
                     <button class="flex items-center text-gray-500 focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
+                        <div class="w-full max-w-sm text-center">
+                            <img src="{{ Auth::user()->profile_photo_url ? asset(Auth::user()->profile_photo_url) : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}"
+                            alt="Profile Picture"
+                            class="h-12 w-12 rounded-full object-cover shadow-lg mx-auto" />
                     </button>
                 </div>
             </header>
@@ -116,10 +116,9 @@
                     <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                         <div class="flex-shrink-0 flex items-center px-4">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="ml-2 text-white font-bold text-lg">Futsal Mate</span>
+                                <div class="flex items-center">
+                                    <img src="{{ asset('logos/futsalmate_logo.png') }}" alt="Futsal Mate Logo" class="h-12 w-auto max-w-[120px] object-contain">
+                                </div>
                             </div>
                         </div>
                         <nav class="mt-5 px-2 space-y-1">

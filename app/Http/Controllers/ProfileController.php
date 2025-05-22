@@ -34,6 +34,10 @@ class ProfileController extends Controller
     return redirect()->route('profile')->with('success', 'Profile updated successfully');
 }
 
+
+    // ----------------------------Add User Profile Photo -------------------------
+
+
     public function addProfilePhoto(Request $request)
 {
     $request->validate([
