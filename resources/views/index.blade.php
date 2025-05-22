@@ -22,7 +22,7 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-16 bg-white">
+<section id="features" class="py-16 bg-white">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Why Choose <span class="text-primary">Futsal Mate</span>?</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -65,6 +65,14 @@
     </div>
 </section>
 
+<!-- Testimonials -->
+<section class="bg-white -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+    <div class="w-full h-40 sm:h-56 md:h-72 lg:h-80 xl:h-96 relative">
+        <img src="{{ asset('logos/FutsalMate_quote.png') }}" alt="Futsal Mate Quote"
+            class="w-full h-full object-cover object-center">
+    </div>
+</section>
+
 <!-- Courts Section -->
 <section class="py-16 bg-gray-100" id="courts">
     <div class="container mx-auto px-4">
@@ -92,33 +100,6 @@
     </div>
 </section>
 
-<!-- Testimonials -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">What Our <span class="text-primary">Players Say</span></h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-gray-100 p-6 rounded-lg">
-                <div class="flex items-center mb-4">
-                    <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-                        <span class="text-xl font-bold">R</span>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">Rajesh Sharma</h4>
-                        <div class="flex text-yellow-400">
-                            @for ($i = 0; $i < 5; $i++)
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-                <p class="text-gray-600">"The booking system is so easy to use! I can quickly check availability and book my favorite court in seconds."</p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Call to Action -->
 <section class="py-16 bg-black text-white">
     <div class="container mx-auto px-4 text-center">
@@ -139,18 +120,23 @@
                 <h2 class="text-xl font-bold">Contact Us</h2>
                 <p class="text-green-400">We'd love to hear from you!</p>
             </div>
-            <form class="p-6 space-y-6">
+            <form method="POST" action="{{route('contact')}}" class="p-6 space-y-6">
+            @csrf    
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <input type="text" name="full_name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input type="email" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <input type="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input type="text" name="phone" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Subject</label>
-                    <select class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <select name="subject" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                         <option>General Inquiry</option>
                         <option>Support Request</option>
                         <option>Feedback</option>
@@ -159,7 +145,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea rows="4" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    <textarea rows="4" name="message" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition duration-300">Send Message</button>

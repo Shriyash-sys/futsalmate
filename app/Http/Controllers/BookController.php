@@ -12,58 +12,67 @@ class BookController extends Controller
 {
     public function bookCourt(BookRequest $request)
     {
-    $existingBooking = Book::where('court_id', $request->court_id)
-    ->where('date', $request->date)
-    ->where('time', $request->time)
-    ->first();
+    
+        $existingBooking = Book::where('court_id', $request->court_id)
+            ->where('date', $request->date)
+            ->where('time', $request->time)
+            ->first();
 
-    if ($existingBooking) {
-    return redirect()->back()
-    ->withInput()
-    ->withErrors(['time' => 'This court is already booked at the selected date and time.']);
-    }
-    $transaction_uuid = time(); // Or: Str::uuid()
+        if ($existingBooking) {
+            
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['time' => 'This court is already booked at the selected date and time.']);
+        }
 
-    $booking = new Book([
-    'transaction_uuid' => $transaction_uuid,
-    'date' => $request->date,
-    'time' => $request->time,
-    'payment' => $request->payment,
-    'court_id' => $request->court_id,
-    'user_id' => Auth::id(),
-    'price' => Court::find($request->court_id)->price,
-    ]);
+        $transaction_uuid = time(); // Or: Str::uuid()
 
-    $booking->save();
+        $booking = new Book([
+            'transaction_uuid' => $transaction_uuid,
+            'date' => $request->date,
+            'time' => $request->time,
+            'payment' => $request->payment,
+            'court_id' => $request->court_id,
+            'user_id' => Auth::id(),
+            'price' => Court::find($request->court_id)->price,
+            'status' => $request->payment === 'cash' ? 'Pending' : 'PendingPayment',
+        ]);
 
-    // Prepare eSewa payment data
-    $amount = $booking->price;
-    $tax_amount = 0;
-    $total_amount = $amount + $tax_amount;
-    $product_code = 'EPAYTEST';
-    $product_service_charge = 0;
-    $product_delivery_charge = 0;
-    $success_url = route('esewa.success'); // You can define your Laravel route
-    $failure_url = route('esewa.failure');
-    $signed_field_names = "total_amount,transaction_uuid,product_code";
+        
+        $booking->save();
+        if ($request->payment === 'cash') {
+            return redirect()->route('bookingConfirmation', ['id' => $booking->id])
+                ->with('success', 'Court booked successfully. Please pay in cash at the venue.');
+        }
 
-    $message = "total_amount=$total_amount,transaction_uuid=$transaction_uuid,product_code=$product_code";
-    $secret_key = "8gBm/:&EnhH.1/q"; // Replace with your actual merchant key
-    $signature = base64_encode(hash_hmac('sha256', $message, $secret_key, true));
+        // Prepare eSewa payment data
+        $amount = $booking->price;
+        $tax_amount = 0;
+        $total_amount = $amount + $tax_amount;
+        $product_code = 'EPAYTEST';
+        $product_service_charge = 0;
+        $product_delivery_charge = 0;
+        $success_url = route('esewa.success');
+        $failure_url = route('esewa.failure');
+        $signed_field_names = "total_amount,transaction_uuid,product_code";
 
-    return view('payments.esewa_form', compact(
-    'amount',
-    'tax_amount',
-    'total_amount',
-    'transaction_uuid',
-    'product_code',
-    'product_service_charge',
-    'product_delivery_charge',
-    'success_url',
-    'failure_url',
-    'signed_field_names',
-    'signature'
-    ));
+        $message = "total_amount=$total_amount,transaction_uuid=$transaction_uuid,product_code=$product_code";
+        $secret_key = "8gBm/:&EnhH.1/q"; // Replace with your actual merchant key
+        $signature = base64_encode(hash_hmac('sha256', $message, $secret_key, true));
+
+        return view('payments.esewa_form', compact(
+            'amount',
+            'tax_amount',
+            'total_amount',
+            'transaction_uuid',
+            'product_code',
+            'product_service_charge',
+            'product_delivery_charge',
+            'success_url',
+            'failure_url',
+            'signed_field_names',
+            'signature'
+        ));
     }
 
 public function showBookingConfirmation($id) {
@@ -129,24 +138,55 @@ public function success(Request $request){
     $encodedData = $request->query('data'); // get 'data' query parameter
 
     if ($encodedData) {
-    // Base64 decode
-    $jsonData = base64_decode($encodedData);
-    // JSON decode to associative array
-    $data = json_decode($jsonData, true);
-    if($data['status'] =="COMPLETE"){
-        Book::where('transaction_uuid ', $data['transaction_uuid'])
-        ->update([
-            'status' => 'Paid',
-        ]);
+        // Base64 decode
+        $jsonData = base64_decode($encodedData);
+        
+        // JSON decode to associative array
+        $data = json_decode($jsonData, true);
+    
+        if($data && $data['status'] =="COMPLETE") {
+            
+            // Book::where('transaction_uuid', $data['transaction_uuid'])
+            // ->update([
+            // 'status' => 'Paid',
+            // ]);
+
+            $updated = Book::where('transaction_uuid', $data['transaction_uuid'])
+                ->where('status', 'PendingPayment') // Optional: ensure it was in payment flow
+                ->update(['status' => 'Confirmed']);
+
+            if ($updated) {
+                return view('payments.esewa_success', compact('data'))
+                    ->with('success', 'Payment successful and booking confirmed.');
+            } else {
+                return view('payments.esewa_success', compact('data'))
+                    ->with('error', 'Booking not found or already updated.');
+            }
+        }
+    } else {
+
+        $data = null;
     }
-} else {
-$data = null;
-}
-return view('payments.esewa_success',compact('data'));  
+    
+    return view('payments.esewa_success',compact('data'));  
 }
 
 
-public function failure(){
+public function failure(Request $request){
+
+    $txn = $request->query('txn');
+
+    // Delete the failed booking
+    Book::where('transaction_uuid', $txn)
+        ->where('status', 'PendingPayment')
+        ->delete();
+
+    // Alternative: mark it as failed
+    // Book::where('transaction_uuid', $txn)
+    //     ->where('status', 'PendingPayment')
+    //     ->update(['status' => 'Failed']);
+
+
     return view('payments.esewa_failed');
 }
 }

@@ -40,15 +40,7 @@ class FutsalController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'full_name'=> 'required|string|max:255',
-            'email'=> 'required|email|max:255',
-            'phone'=> 'required|string|max:15',
-            'subject'=> 'required',
-            'message'=> 'required|string|max:1000'
-        ]);
-            Contact::create($validated);
-            return redirect()->back(); 
+        
     }
 
     /**
@@ -172,8 +164,6 @@ class FutsalController extends Controller
 
     public function login(LoginRequest $request) {
 
-        // dd($request->remember);
-
         $credentials = $request->only('email', 'password');
 
         $remember = $request->filled('remember');
@@ -184,7 +174,9 @@ class FutsalController extends Controller
             return redirect()->route('userDashboard', Auth::user()->id)->with('success', 'You have successfully logged in.');
         } 
         else {
-            return redirect()->back();
+            return back()->withErrors([
+                'login_error' => 'Email or password did not match.',
+                ])->withInput();
         }
     }
 
@@ -202,4 +194,19 @@ class FutsalController extends Controller
         return redirect('/');
     }
 
+    // ----------------------------------------Contact Form----------------------------------------
+
+
+    public function contact(Request $request) 
+    {
+        $validated = $request->validate([
+            'full_name'=> 'required|string|max:255',
+            'email'=> 'required|email|max:255',
+            'phone'=> 'required|string|max:15',
+            'subject'=> 'required',
+            'message'=> 'required|string|max:1000'
+        ]);
+            Contact::create($validated);
+            return redirect()->back(); 
+    }
 }

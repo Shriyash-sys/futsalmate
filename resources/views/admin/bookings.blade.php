@@ -36,7 +36,7 @@
                             <td class="py-3 px-4">{{ $booking->time ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->price ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->payment ?? 'N/A' }}</td>
-                            <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
+                            <td class="py-3 px-4 text-green-400 font-medium">{{$booking->status}}</td>
                         </tr>
                     @empty
                         <tr>

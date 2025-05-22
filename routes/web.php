@@ -27,6 +27,8 @@ Route::get('/profile', [FutsalController::class, 'showProfile'])->name('profile'
 
 Route::get('/dashboard', [FutsalController::class, 'userDashboard'])->name('userDashboard');
 
+Route::post('/contact', [FutsalController::class, 'contact'])->name('contact');
+
 // Apply 'auth' middleware to protect the route
 Route::middleware(['auth'])->group(function () {
     Route::put('/edit-profile', [ProfileController::class, 'editProfile'])->name('editProfile');
