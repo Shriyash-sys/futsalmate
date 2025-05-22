@@ -104,11 +104,5 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 
-
-
-
-
-
-
-
-
+Route::get('/success', [BookController::class, 'success'])->name('esewa.success');
+Route::get('failled', [BookController::class, 'failure'])->name('esewa.failure');
