@@ -9,7 +9,7 @@
                 <a href="{{route('futsals.index')}}" class="hover:text-primary transition duration-300">Home</a>
                 <a href="#courts" class="hover:text-primary transition duration-300">Courts</a>
                 <a href="pricing.html" class="hover:text-primary transition duration-300">Pricing</a>
-                <a href="contact.html" class="hover:text-primary transition duration-300">Contact</a>
+                <a href="#contact" class="hover:text-primary transition duration-300">Contact</a>
                 <a href="{{ route('loginForm') }}" class="bg-primary hover:bg-primary-dark text-secondary font-bold py-2 px-4 rounded-lg transition duration-300">Login</a>
             </div>
             <div class="md:hidden flex items-center ">
@@ -24,7 +24,7 @@
             <a href="{{route('futsals.index')}}" class="block py-2 hover:text-primary transition duration-300">Home</a>
             <a href="#courts" class="block py-2 hover:text-primary transition duration-300">Courts</a>
             <a href="pricing.html" class="block py-2 hover:text-primary transition duration-300">Pricing</a>
-            <a href="contact.html" class="block py-2 hover:text-primary transition duration-300">Contact</a>
+            <a href="#contact" class="block py-2 hover:text-primary transition duration-300">Contact</a>
             <a href="{{ route('loginForm') }}" class="block py-2 mt-2 bg-primary hover:bg-primary-dark text-secondary font-bold text-center rounded-lg transition duration-300">Login</a>
         </div>
     </div>

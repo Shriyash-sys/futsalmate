@@ -78,15 +78,19 @@ Route::middleware('auth:admin')->group(function () {
     
     Route::get('/admin/profile', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
     
-    Route::get('/admin/addcourtForm', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
+    Route::get('/admin/add-court-Form', [AdminController::class, 'showAddCourtForm'])->name('admin.addcourtForm');
 
-    Route::get('/admin/viewmycourt/{id}', [AdminController::class, 'adminViewMyCourt'])->name('admin.viewMyCourt');
+    Route::get('/admin/view-mycourt/{id}', [AdminController::class, 'adminViewMyCourt'])->name('admin.viewMyCourt');
 
-    Route::get('/admin/editmycourtform/{id}', [AdminController::class, 'adminEditCourtForm'])->name('admin.editMyCourtForm');
+    Route::get('/admin/edit-mycourt-form/{id}', [AdminController::class, 'adminEditCourtForm'])->name('admin.editMyCourtForm');
+
+    Route::get('/admin/edit-profile-form/{id}', [AdminController::class, 'showAdminEditProfileForm'])->name('admin.editProfileForm');
     
-    Route::post('/admin/addcourt', [AdminController::class, 'addCourt'])->name('admin.addcourt');
+    Route::post('/admin/add-court', [AdminController::class, 'addCourt'])->name('admin.addcourt');
 
     Route::put('/admin/edit-my-court/{id}', [AdminController::class, 'adminEditMyCourt'])->name('admin.editMyCourt');
+
+    Route::put('/admin/edit-profile/{id}', [AdminController::class, 'adminEditProfile'])->name('admin.editProfile');
     
     Route::post('/admin/admin-profile-photo', [AdminController::class, 'addAdminProfilePhoto'])->name('admin.addAdminProfilePhoto');
 

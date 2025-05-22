@@ -255,20 +255,5 @@
             </main>
         </div>
     </div>
-
-    <script>
-        // Mobile menu toggle
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        const closeSidebar = document.getElementById('close-sidebar');
-
-        sidebarToggle.addEventListener('click', () => {
-            mobileSidebar.classList.toggle('hidden');
-        });
-
-        closeSidebar.addEventListener('click', () => {
-            mobileSidebar.classList.add('hidden');
-        });
-    </script>
 </body>
 </html>
