@@ -16,6 +16,7 @@ class Book extends Model
         'user_id',
         'court_id',
         'status',
+        'transaction_uuid',
     ];
 
     public function user()

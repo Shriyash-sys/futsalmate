@@ -22,8 +22,10 @@ class BookController extends Controller
     ->withInput()
     ->withErrors(['time' => 'This court is already booked at the selected date and time.']);
     }
+    $transaction_uuid = time(); // Or: Str::uuid()
 
     $booking = new Book([
+    'transaction_uuid' => $transaction_uuid,
     'date' => $request->date,
     'time' => $request->time,
     'payment' => $request->payment,
@@ -38,7 +40,6 @@ class BookController extends Controller
     $amount = $booking->price;
     $tax_amount = 0;
     $total_amount = $amount + $tax_amount;
-    $transaction_uuid = time(); // Or: Str::uuid()
     $product_code = 'EPAYTEST';
     $product_service_charge = 0;
     $product_delivery_charge = 0;
@@ -132,8 +133,8 @@ public function success(Request $request){
     $jsonData = base64_decode($encodedData);
     // JSON decode to associative array
     $data = json_decode($jsonData, true);
-    if($data['status'] =="Success"){
-        Book::where('transaction_uuid', $data['uuid'])
+    if($data['status'] =="COMPLETE"){
+        Book::where('transaction_uuid ', $data['transaction_uuid'])
         ->update([
             'status' => 'Paid',
         ]);
