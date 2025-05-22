@@ -25,7 +25,7 @@
                         <th class="py-3 px-4 text-left">Amount</th>
                         <th class="py-3 px-4 text-left">Payment Status</th>
                         <th class="py-3 px-4 text-left">Status</th>
-                        <th class="py-3 px-4 text-center">Actions</th>
+                        {{-- <th class="py-3 px-4 text-center">Actions</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -38,9 +38,9 @@
                             <td class="py-3 px-4">{{ $booking->price ?? 'N/A' }}</td>
                             <td class="py-3 px-4">{{ $booking->payment ?? 'N/A' }}</td>
                             <td class="py-3 px-4 text-green-400 font-medium">Confirmed</td>
-                            <td class="py-3 px-4 text-center space-x-2">
+                            {{-- <td class="py-3 px-4 text-center space-x-2">
                                 <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded transition">Edit</button>
-                                <form action="{{route('admin.cancelBookings', ['id' => $user->id])}}" method="POST" class="inline-block">
+                                <form action="{{route('admin.cancelBookings', $booking->id)}}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                     <button type="submit"
@@ -49,7 +49,7 @@
                                     </button>
                                 </form>
                                 <button class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-1 rounded transition">View</button>
-                            </td>
+                            </td> --}}
                         </tr>
                     @empty
                         <tr>

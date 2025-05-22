@@ -82,11 +82,21 @@ class BookController extends Controller
         return view('users.editBooking', compact('editForm'));
     }
 
-    public function editBooking(BookRequest $request, $id) 
+    public function editBooking(Request $request, $id) 
     {
-
         $editBooking = Book::with('court')->findOrFail($id);
-        $editBooking->update($request->all());
+        
+        $validated = $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|string|max:255',
+        ]);
+
+        $editBooking->date = $validated['date'];
+        $editBooking->time = $validated['time'];
+
+
+        $editBooking->save();
+
         return redirect()->route('viewBooking', ['id' => $editBooking->id]);
     }
 }

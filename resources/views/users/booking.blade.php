@@ -23,11 +23,11 @@
                         @csrf
 
                         <!-- Step 1: Select Court -->
-<div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
-    <div class="px-4 py-5 sm:px-6 bg-secondary text-white">
-        <h3 class="text-lg leading-6 font-medium">Step 1: Select Court</h3>
-        <p class="mt-1 max-w-2xl text-sm">Choose your preferred court</p>
-    </div>
+    <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
+        <div class="px-4 py-5 sm:px-6 bg-secondary text-white">
+            <h3 class="text-lg leading-6 font-medium">Step 1: Select Court</h3>
+            <p class="mt-1 max-w-2xl text-sm">Choose your preferred court</p>
+        </div>
     
         @forelse ($courts as $court)
         <div class="px-4 py-5 sm:p-6">

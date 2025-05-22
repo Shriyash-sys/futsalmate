@@ -78,7 +78,7 @@
 
         <!-- Mobile Header & Nav -->
         <div class="flex flex-col flex-1 overflow-hidden">
-            <header class="flex items-center justify-between px-4 py-3 bg-white border-b md:hidden">
+            <header class="flex items-center justify-between px-4 py-3 bg-secondary-light border-b md:hidden">
                 <div class="flex items-center">
                     <button id="sidebar-toggle" class="text-gray-500 focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,10 +86,9 @@
                         </svg>
                     </button>
                     <div class="ml-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-2 font-bold text-lg">Futsal Mate</span>
+                        <div class="flex items-center">
+                            <img src="{{ asset('logos/futsalmate_logo.png') }}" alt="Futsal Mate Logo" class="h-12 w-auto max-w-[120px] object-contain">
+                        </div>
                     </div>
                 </div>
                 <div>

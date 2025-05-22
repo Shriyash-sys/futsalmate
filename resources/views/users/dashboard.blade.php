@@ -68,7 +68,7 @@
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                                     <div class="flex items-center mb-3 sm:mb-0">
                                         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                            <span class="text-secondary font-bold">C{{ $loop->iteration }}</span>
+                                            <span class="text-secondary font-bold">{{ strtoupper(substr($upcomingBooking->court->court_name, 0, 1)) }}</span>
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{$upcomingBooking->court->court_name}}</div>
