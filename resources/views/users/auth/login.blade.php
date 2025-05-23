@@ -11,6 +11,12 @@ body {
 }
 </style>
 
+@if ($errors->has('error'))
+        <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+            {{ $errors->first('error') }}
+        </div>
+    @endif
+
 <body class="bg-gray-100 min-h-screen">
 
 <!-- Login Form -->

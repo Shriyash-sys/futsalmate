@@ -2,6 +2,15 @@
 
 @section('conduct')
 
+
+<div class="max-w-md mx-auto mt-4">
+    @if (session('success'))
+        <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
 <!-- Main Content -->
 <div class="w-full flex-1 p-4 sm:p-6 space-y-8">
 

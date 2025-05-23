@@ -1,7 +1,20 @@
 @extends('users.layouts.master')
 
 @section('context')
+
+<!-- Messages Section -->
+<div class="max-w-md mx-auto mt-4">
+    @if (session('success'))
+        <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
 <div class="flex h-screen overflow-hidden">
+
+   
+
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-gray-100">
         <div class="py-6">
@@ -53,10 +66,10 @@
                     </div>
                 </div>
 
-            <!-- Upcoming Bookings -->
+            <!-- Bookings -->
                 <div class="mt-8">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-medium text-gray-900">Upcoming Bookings</h2>
+                        <h2 class="text-lg font-medium text-gray-900">All Bookings</h2>
                         <a href="{{route('mybookings')}}" class="text-sm font-medium text-primary hover:text-primary-dark">View all →</a>
                     </div>
                     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -109,8 +122,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <h3 class="mt-4 text-lg font-medium text-gray-700">No Upcoming Bookings</h3>
-                                <p class="mt-2 text-gray-500">You don't have any upcoming bookings.</p>
+                                <h3 class="mt-4 text-lg font-medium text-gray-700">No Bookings</h3>
+                                <p class="mt-2 text-gray-500">You don't have any bookings.</p>
                             </div>
                             @endforelse
                     </div>

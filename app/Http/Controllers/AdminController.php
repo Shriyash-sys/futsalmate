@@ -151,12 +151,12 @@ class AdminController extends Controller
         $remember = $request->has('remember');
 
         if (Auth::guard('admin')->attempt($credentials, $remember)) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success', 'You have successfully logged in.');
         }
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ]);
+                'error' => 'Email or password did not match.',
+                ])->withInput();
 
     }
 

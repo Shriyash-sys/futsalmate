@@ -175,7 +175,7 @@ class FutsalController extends Controller
         } 
         else {
             return back()->withErrors([
-                'login_error' => 'Email or password did not match.',
+                'error' => 'Email or password did not match.',
                 ])->withInput();
         }
     }

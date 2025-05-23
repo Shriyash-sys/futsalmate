@@ -112,7 +112,7 @@
                                 <p class="mt-1 max-w-2xl text-sm">Choose how you want to pay</p>
                             </div>
                             <div class="px-4 py-5 sm:p-6">
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
                                     <!-- Changed to 3 cols since you have 3 items -->
                                     <!-- eSewa -->
                                     <div class="relative">
@@ -126,20 +126,6 @@
                                                     class="h-full w-auto object-contain max-h-full max-w-full">
                                             </div>
                                             <span class="mt-2 font-medium">eSewa</span>
-                                        </label>
-                                    </div>
-
-                                    <!-- Khalti -->
-                                    <div class="relative">
-                                        <input type="radio" id="khalti" name="payment" value="khalti"
-                                            class="sr-only peer">
-                                        <label for="khalti"
-                                            class="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer focus:outline-none hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary-light h-full">
-                                            <div class="flex items-center justify-center h-12 w-full">
-                                                <img src="{{ asset('logos/khalti_logo.png') }}" alt="Khalti"
-                                                    class="h-full w-auto object-contain max-h-full max-w-full">
-                                            </div>
-                                            <span class="mt-2 font-medium">Khalti</span>
                                         </label>
                                     </div>
 
