@@ -74,7 +74,7 @@
                             <td class="py-3 px-4">{{ $booking->payment ?? 'N/A' }}</td>
                             <td class="py-3 px-4 text-green-400 font-medium">{{$booking->status}}</td>
                             <td class="px-4 py-2 flex gap-2">
-                                @if ($status === 'Pending')
+                                @if ($status === 'Pending' || $status === 'PendingPayment')
                                     <form method="POST" action="{{ route('admin.bookings.approve', $booking->id) }}">
                                         @csrf
                                         @method('PATCH')
