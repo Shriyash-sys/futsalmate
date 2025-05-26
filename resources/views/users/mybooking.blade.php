@@ -8,7 +8,6 @@
                     <div class="px-4 sm:px-6 md:px-8">
                         <h1 class="text-2xl font-semibold text-gray-900 text-center pb-4">My Bookings</h1>
                     </div>
-
                     <div class="px-4 sm:px-6 md:px-8">
                         <div class="bg-white shadow overflow-hidden sm:rounded-md mb-6">
                             <ul class="divide-y divide-gray-200">

@@ -2,6 +2,7 @@
 
 @section('context')
 
+
 <!-- Messages Section -->
 <div class="max-w-md mx-auto mt-4">
     @if (session('success'))
@@ -10,10 +11,7 @@
         </div>
     @endif
 </div>
-
 <div class="flex h-screen overflow-hidden">
-
-   
 
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-gray-100">

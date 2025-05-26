@@ -172,21 +172,24 @@ public function success(Request $request){
 }
 
 
-public function failure(Request $request){
+public function failure(Request $request)
+    {
 
-    $txn = $request->query('txn');
+        $txn = $request->query('txn');
 
-    // Delete the failed booking
-    Book::where('transaction_uuid', $txn)
-        ->where('status', 'PendingPayment')
-        ->delete();
+        // Delete the failed booking
+        Book::where('transaction_uuid', $txn)
+            ->where('status', 'PendingPayment')
+            ->delete();
 
-    // Alternative: mark it as failed
-    // Book::where('transaction_uuid', $txn)
-    //     ->where('status', 'PendingPayment')
-    //     ->update(['status' => 'Failed']);
+        // Alternative: mark it as failed
+        // Book::where('transaction_uuid', $txn)
+        //     ->where('status', 'PendingPayment')
+        //     ->update(['status' => 'Failed']);
 
 
-    return view('payments.esewa_failed');
-}
+        return view('payments.esewa_failed');
+    }
+
+
 }

@@ -108,3 +108,9 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::get('/success', [BookController::class, 'success'])->name('esewa.success');
 Route::get('failled', [BookController::class, 'failure'])->name('esewa.failure');
+
+Route::patch('/admin/bookings/{booking}/approve', [AdminController::class, 'approve'])->name('admin.bookings.approve');
+
+Route::patch('/admin/bookings/{booking}/reject', [AdminController::class, 'reject'])->name('admin.bookings.reject');
+
+

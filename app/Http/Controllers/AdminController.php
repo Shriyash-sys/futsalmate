@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Court;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookRequest;
 use App\Http\Requests\AdminRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -83,19 +84,26 @@ class AdminController extends Controller
     // ----------------------------Admin Bookings-------------------------
 
 
-    public function showAdminBookings() 
+    public function showAdminBookings(Request $request) 
     {
-
         $adminId = Auth::id();
-        
+        $status = $request->get('status', 'Pending'); // Default to 'Pending'
+
+        // Only bookings by this admin and with the selected status
         $bookings = Book::with(['user', 'court'])
+            ->where('status', $status)
             ->whereHas('court', function ($query) use ($adminId) {
                 $query->where('admin_id', $adminId);
             })
-            ->latest()->get(); // eager load related data
+            ->latest()
+            ->get();
 
-        return view('admin.bookings', compact('bookings'));
+        return view('admin.bookings', [
+            'bookings' => $bookings,
+            'status' => $status
+        ]);
     }
+
 
     // ----------------------------Admin My Courts-------------------------
 
@@ -443,6 +451,31 @@ class AdminController extends Controller
         return redirect()->route('admin.profile', ['id' => $admin->id])->with('success', 'Profile updated successfully!');
     }
 
+
+    public function approve(Book $booking)
+    {
+        if ($booking->status !== 'Pending') {
+        return back()->with('error', 'Only pending bookings can be approved.');
+    }
+
+        $booking->status = 'Confirmed';
+        $booking->save();
+
+        return back()->with('success', 'Booking approved successfully.');
+    }
+
+
+    public function reject(Book $booking)
+    {
+        if ($booking->status !== 'Pending') {
+        return back()->with('error', 'Only pending bookings can be rejected.');
+    }
+
+        $booking->status = 'Rejected';
+        $booking->save();
+
+        return back()->with('success', 'Booking rejected successfully.');
+    }
 }
 
 

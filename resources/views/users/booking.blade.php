@@ -128,7 +128,7 @@
                                             <span class="mt-2 font-medium">eSewa</span>
                                         </label>
                                     </div>
-
+                                    
                                     <!-- Hand Cash -->
                                     <div class="relative">
                                         <input type="radio" id="cash" name="payment" value="cash"

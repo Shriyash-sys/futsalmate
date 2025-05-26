@@ -43,7 +43,7 @@
                                     <dt class="text-sm font-medium text-gray-500">Status</dt>
                                     <dd class="mt-1 text-sm text-gray-900">
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if ($booking->status == 'pending') bg-red-100 @endif bg-green-100 text-green-800">{{ $booking->status }}</span>
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if ($booking->status == 'pending') bg-red @endif bg-green-100 text-green-800">{{ $booking->status }}</span>
                                     </dd>
                                 </div>
                                 <div>
@@ -54,7 +54,7 @@
                                     <dt class="text-sm font-medium text-gray-500">Payment Status</dt>
                                     <dd class="mt-1 text-sm text-gray-900">
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 @if ($booking->status == 'pending') bg-red-100 @endif text-green-800">{{ $booking->status }}</span>
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 @if ($booking->status == 'pending') bg-red @endif text-green-800">{{ $booking->status }}</span>
                                     </dd>
                                 </div>
                                 <div>

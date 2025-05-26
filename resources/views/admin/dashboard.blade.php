@@ -18,15 +18,15 @@
     <header class="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-2 mb-20 md:mb-6">
         <div class="text-sm text-gray-400">Welcome, {{$admin->full_name}}</div>
     </header>
-  
+
 
     <!-- Summary Cards -->
     <section class="" >
-      <div class="mb-4 ">
-      <h2 class="text-2xl font-bold">Dashboard</h2>
+        <div class="mb-4 ">
+        <h2 class="text-2xl font-bold">Dashboard</h2>
     </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-gray-900 rounded-xl shadow p-4">
+            <div class="bg-gray-900 rounded-xl shadow p-4">
             <h2 class="text-sm text-gray-400">Total Bookings</h2>
             <p class="text-2xl font-bold mt-2">{{$bookings}}</p>
         </div>
