@@ -12,14 +12,14 @@ class BookController extends Controller
 {
     public function bookCourt(BookRequest $request)
     {
-    
+
         $existingBooking = Book::where('court_id', $request->court_id)
             ->where('date', $request->date)
             ->where('time', $request->time)
             ->first();
 
         if ($existingBooking) {
-            
+
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['time' => 'This court is already booked at the selected date and time.']);
@@ -38,7 +38,7 @@ class BookController extends Controller
             'status' => $request->payment === 'cash' ? 'Pending' : 'PendingPayment',
         ]);
 
-        
+
         $booking->save();
         if ($request->payment === 'cash') {
             return redirect()->route('bookingConfirmation', ['id' => $booking->id])
@@ -75,104 +75,105 @@ class BookController extends Controller
         ));
     }
 
-public function showBookingConfirmation($id) {
+    public function showBookingConfirmation($id)
+    {
 
-// $courts = Court::paginate();
-$booking = Book::with('court')->findOrFail($id);
-// dd($booking);
-return view('users.bookingConfirmation', compact('booking'));
-}
-
-public function cancelBooking($id)
-{
-$user = Auth::user();
-$bookings = Book::where('id', $id)->where('user_id', $user->id)->first();
-
-if ($bookings) {
-
-$bookings->delete();
-return redirect()->route('mybookings')->with('success', 'Booking cancelled.');
-} else {
-
-return redirect()->route('mybookings')->with('error', 'Booking not found or not authorized.');
-}
-
-return redirect()->route('mybookings',compact('bookings'));
-}
-
-public function viewBooking($id)
-{
-
-$viewBooking = Book::with('court')->findOrFail($id);
-// $editForm = Book::with('court')->findOrFail($id);
-return view('users.viewBooking', compact('viewBooking'));
-
-}
-
-public function editBookingForm($id)
-{
-$editForm = Book::with('court')->findOrFail($id);
-return view('users.editBooking', compact('editForm'));
-}
-
-public function editBooking(Request $request, $id)
-{
-$editBooking = Book::with('court')->findOrFail($id);
-
-$validated = $request->validate([
-'date' => 'required|date|after_or_equal:today',
-'time' => 'required|string|max:255',
-]);
-
-$editBooking->date = $validated['date'];
-$editBooking->time = $validated['time'];
-
-
-$editBooking->save();
-
-return redirect()->route('viewBooking', ['id' => $editBooking->id]);
-}
-
-
-public function success(Request $request){
-    $encodedData = $request->query('data'); // get 'data' query parameter
-
-    if ($encodedData) {
-        // Base64 decode
-        $jsonData = base64_decode($encodedData);
-        
-        // JSON decode to associative array
-        $data = json_decode($jsonData, true);
-    
-        if($data && $data['status'] =="COMPLETE") {
-            
-            // Book::where('transaction_uuid', $data['transaction_uuid'])
-            // ->update([
-            // 'status' => 'Paid',
-            // ]);
-
-            $updated = Book::where('transaction_uuid', $data['transaction_uuid'])
-                ->where('status', 'PendingPayment') // Optional: ensure it was in payment flow
-                ->update(['status' => 'Confirmed']);
-
-            if ($updated) {
-                return view('payments.esewa_success', compact('data'))
-                    ->with('success', 'Payment successful and booking confirmed.');
-            } else {
-                return view('payments.esewa_success', compact('data'))
-                    ->with('error', 'Booking not found or already updated.');
-            }
-        }
-    } else {
-
-        $data = null;
+        // $courts = Court::paginate();
+        $booking = Book::with('court')->findOrFail($id);
+        // dd($booking);
+        return view('users.bookingConfirmation', compact('booking'));
     }
-    
-    return view('payments.esewa_success',compact('data'));  
-}
+
+    public function cancelBooking($id)
+    {
+        $user = Auth::user();
+        $bookings = Book::where('id', $id)->where('user_id', $user->id)->first();
+
+        if ($bookings) {
+
+            $bookings->delete();
+            return redirect()->route('mybookings')->with('success', 'Booking cancelled.');
+        } else {
+
+            return redirect()->route('mybookings')->with('error', 'Booking not found or not authorized.');
+        }
+
+        return redirect()->route('mybookings', compact('bookings'));
+    }
+
+    public function viewBooking($id)
+    {
+
+        $viewBooking = Book::with('court')->findOrFail($id);
+        // $editForm = Book::with('court')->findOrFail($id);
+        return view('users.viewBooking', compact('viewBooking'));
+    }
+
+    public function editBookingForm($id)
+    {
+        $editForm = Book::with('court')->findOrFail($id);
+        return view('users.editBooking', compact('editForm'));
+    }
+
+    public function editBooking(Request $request, $id)
+    {
+        $editBooking = Book::with('court')->findOrFail($id);
+
+        $validated = $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|string|max:255',
+        ]);
+
+        $editBooking->date = $validated['date'];
+        $editBooking->time = $validated['time'];
 
 
-public function failure(Request $request)
+        $editBooking->save();
+
+        return redirect()->route('viewBooking', ['id' => $editBooking->id]);
+    }
+
+
+    public function success(Request $request)
+    {
+        $encodedData = $request->query('data'); // get 'data' query parameter
+
+        if ($encodedData) {
+            // Base64 decode
+            $jsonData = base64_decode($encodedData);
+
+            // JSON decode to associative array
+            $data = json_decode($jsonData, true);
+
+            if ($data && $data['status'] == "COMPLETE") {
+
+                // Book::where('transaction_uuid', $data['transaction_uuid'])
+                // ->update([
+                // 'status' => 'Paid',
+                // ]);
+
+                $updated = Book::where('transaction_uuid', $data['transaction_uuid'])
+                    ->where('status', 'PendingPayment') // Optional: ensure it was in payment flow
+                    ->update(['status' => 'Confirmed']);
+
+                if ($updated) {
+                    return view('payments.esewa_success', compact('data'))
+                        ->with('success', 'Payment successful and booking confirmed.');
+                } else {
+                    return view('payments.esewa_success', compact('data'))
+                        ->with('error', 'Booking not found or already updated.');
+                }
+            }
+        } else {
+
+            $data = null;
+        }
+
+        return view('payments.esewa_success', compact('data'));
+    }
+
+
+    public function failure(Request $request)
     {
 
         $txn = $request->query('txn');
@@ -190,6 +191,4 @@ public function failure(Request $request)
 
         return view('payments.esewa_failed');
     }
-
-
 }
