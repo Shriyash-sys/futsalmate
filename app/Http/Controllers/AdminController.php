@@ -18,14 +18,14 @@ class AdminController extends Controller
 
     // ----------------------------Admin Login Form-------------------------
 
-    public function showAdminLoginForm() 
+    public function showAdminLoginForm()
     {
         return view('admin.auth.login');
     }
 
     // ----------------------------Admin Signup Form-------------------------
 
-    public function showAdminSignupForm() 
+    public function showAdminSignupForm()
     {
         return view('admin.auth.signup');
     }
@@ -33,11 +33,11 @@ class AdminController extends Controller
 
     // -------------------------Admin Dashboard----------------------
 
-    public function showAdminDashboard() 
+    public function showAdminDashboard()
     {
         $admin = Auth::guard('admin')->user();
 
-    
+
         if (!$admin) {
             // Optionally redirect or throw an exception
             return redirect()->route('admin')->withErrors('Please login first.');
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
         $courts = Court::where('admin_id', $admin->id)->count();
         $courtName = Court::where('admin_id', $admin->id)->limit(3)->get();
-        
+
         $userName = Book::with(['user', 'court'])
             ->whereHas('court', function ($query) use ($adminId) {
                 $query->where('admin_id', $adminId);
@@ -59,12 +59,12 @@ class AdminController extends Controller
         // $adminId = $admin->id;
 
         $totalRevenue = Book::whereHas('court', function ($query) use ($adminId) {
-                $query->where('admin_id', $adminId);
-            })->sum('price');
+            $query->where('admin_id', $adminId);
+        })->sum('price');
 
         $registeredUserCount = Book::whereHas('court', function ($query) use ($adminId) {
-                $query->where('admin_id', $adminId);
-            })->distinct('user_id')->count('user_id');
+            $query->where('admin_id', $adminId);
+        })->distinct('user_id')->count('user_id');
 
         $userManagement = $users = User::get();
 
@@ -77,14 +77,14 @@ class AdminController extends Controller
             'totalRevenue',
             'registeredUserCount',
             'userManagement',
-        )); 
+        ));
     }
 
 
     // ----------------------------Admin Bookings-------------------------
 
 
-    public function showAdminBookings(Request $request) 
+    public function showAdminBookings(Request $request)
     {
         $adminId = Auth::id();
         $status = $request->get('status', 'Pending'); // Default to 'Pending'
@@ -108,7 +108,7 @@ class AdminController extends Controller
     // ----------------------------Admin My Courts-------------------------
 
 
-    public function showAdminMyCourts() 
+    public function showAdminMyCourts()
     {
         $adminId = Auth::guard('admin')->id(); // explicitly get the admin ID
 
@@ -120,7 +120,7 @@ class AdminController extends Controller
     // ----------------------------Admin Profile-------------------------
 
 
-    public function showAdminProfile() 
+    public function showAdminProfile()
     {
         $admin = Auth::guard('admin')->user();
 
@@ -132,8 +132,8 @@ class AdminController extends Controller
         $bookings = Book::whereIn('court_id', $courtIds)->count();
 
         $registeredUserCount = Book::whereHas('court', function ($query) use ($adminId) {
-                    $query->where('admin_id', $adminId);
-                    })->distinct('user_id')->count('user_id');
+            $query->where('admin_id', $adminId);
+        })->distinct('user_id')->count('user_id');
 
         $joinedDate = $admin->created_at->format('Y-m-d');
 
@@ -143,16 +143,16 @@ class AdminController extends Controller
     // ----------------------------Admin Users-------------------------
 
 
-    public function showAdminUsers() 
+    public function showAdminUsers()
     {
         $users = User::get(); // eager load related data
         return view('admin.user', compact('users'));
     }
 
-// ----------------------------------Admin Login-----------------------------
+    // ----------------------------------Admin Login-----------------------------
 
 
-    public function adminLogin(Request $request) 
+    public function adminLogin(Request $request)
     {
         // Validate the request data
         $credentials = $request->only('email', 'password');
@@ -163,15 +163,14 @@ class AdminController extends Controller
         }
 
         return back()->withErrors([
-                'error' => 'Email or password did not match.',
-                ])->withInput();
-
+            'error' => 'Email or password did not match.',
+        ])->withInput();
     }
 
     // ----------------------------Admin Signup-------------------------
 
 
-    public function adminSignup(AdminRequest $request) 
+    public function adminSignup(AdminRequest $request)
     {
         // Create a new admin user
         $admin = Admin::create([
@@ -184,13 +183,12 @@ class AdminController extends Controller
         Auth::login($admin);
 
         return redirect()->route('admin');
-
     }
 
     // ----------------------------Admin Logout-------------------------
 
 
-    public function adminLogout(Request $request) 
+    public function adminLogout(Request $request)
     {
         Auth::logout();
 
@@ -204,7 +202,7 @@ class AdminController extends Controller
     // ----------------------------Admin Add Court Form-------------------------
 
 
-    public function showAddCourtForm() 
+    public function showAddCourtForm()
     {
         return view('admin.addcourt');
     }
@@ -212,7 +210,7 @@ class AdminController extends Controller
     // ----------------------------Admin Add Court-------------------------
 
 
-    public function addCourt(Request $request) 
+    public function addCourt(Request $request)
     {
         $admin = Auth::guard('admin')->user();
 
@@ -242,7 +240,7 @@ class AdminController extends Controller
         $court->image_url = $imageUrl;
 
         $court->admin_id = Auth::guard('admin')->id();
-    
+
         $court->save();
 
         return redirect()->route('admin.mycourts');
@@ -250,7 +248,7 @@ class AdminController extends Controller
 
     // ----------------------------Admin Profile Photo-------------------------
 
-    public function addAdminProfilePhoto(Request $request) 
+    public function addAdminProfilePhoto(Request $request)
     {
         $request->validate([
             'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -273,7 +271,7 @@ class AdminController extends Controller
             $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $admin->profile_photo_path = $path;
             $admin->profile_photo_url = Storage::url($path);
-        
+
             $admin->save();
         }
         return redirect()->route('admin.profile')->with('success', 'Profile photo updated.');
@@ -281,14 +279,14 @@ class AdminController extends Controller
 
     // ----------------------------Admin Delete Profile Photo-------------------------
 
-    public function deleteAdminProfilePhoto() 
+    public function deleteAdminProfilePhoto()
     {
         $admin = Auth::guard('admin')->user();
 
         if (!$admin || !($admin instanceof Admin)) {
             abort(403, 'User not authenticated or invalid model.');
         }
-        
+
         // Delete old photo
         if ($admin->profile_photo_path) {
             Storage::delete($admin->profile_photo_path);
@@ -303,30 +301,30 @@ class AdminController extends Controller
 
 
     // ----------------------------Admin Delete User-------------------------
-    public function deleteUser($id) 
+    public function deleteUser($id)
     {
         $admin = Auth::guard('admin')->user();
 
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('admin.users',compact('user'));
+        return redirect()->route('admin.users', compact('user'));
     }
 
     // ----------------------------Admin Delete Booking-------------------------
 
-    public function adminCancelBooking($id) 
+    public function adminCancelBooking($id)
     {
 
         $admin = Auth::guard('admin')->user();
         $bookings = Book::where('user_id', $admin->id)->first();
 
         if ($bookings) {
-            
+
             $bookings->delete();
             return redirect()->route('admin.bookings')->with('success', 'Booking cancelled.');
         } else {
-            
+
             return redirect()->route('admin.bookings')->with('error', 'Booking not found or not authorized.');
         }
 
@@ -337,7 +335,7 @@ class AdminController extends Controller
     // ----------------------------Admin Delete Court-------------------------
 
 
-    public function adminDeleteCourt($id) 
+    public function adminDeleteCourt($id)
     {
 
         $admin = Auth::guard('admin')->user();
@@ -349,12 +347,11 @@ class AdminController extends Controller
     // ----------------------------Admin View My Court-------------------------
 
 
-    public function adminViewMyCourt($id) 
+    public function adminViewMyCourt($id)
     {
         $court = Court::findOrFail($id);
 
         return view('admin.viewmycourt', compact('court'));
-
     }
 
     // ----------------------------Admin Edit Court Form-------------------------
@@ -370,10 +367,10 @@ class AdminController extends Controller
     // ----------------------------Admin Edit My Court-------------------------
 
 
-    public function adminEditMyCourt(Request $request, $id) 
+    public function adminEditMyCourt(Request $request, $id)
     {
         $editCourt = Court::findOrFail($id);
-        
+
         $validated = $request->validate([
             'court_name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -386,27 +383,25 @@ class AdminController extends Controller
         $editCourt->location = $validated['location'];
         $editCourt->price = $validated['price'];
         $editCourt->description = $validated['description'];
-        
+
         // Handle image upload
         if ($request->hasFile('image')) {
-        
+
             // Delete old image if it exists
-        
+
             if ($editCourt->image_path && Storage::disk('public')->exists($editCourt->image_path)) {
-            
+
                 Storage::disk('public')->delete('storage/court_images/' . $editCourt->image_path);
-            
             }
 
-        // Store new image
-        $image = $request->file('image')->store('images', 'public');
-        $editCourt->image_path = $image;
-        $editCourt->image_url = Storage::url($image);
-    }
+            // Store new image
+            $image = $request->file('image')->store('images', 'public');
+            $editCourt->image_path = $image;
+            $editCourt->image_url = Storage::url($image);
+        }
 
         $editCourt->save();
         return redirect()->route('admin.viewMyCourt', ['id' => $editCourt->id]);
-
     }
 
     // ----------------------------Admin Show Edit Profile Form-------------------------
@@ -422,8 +417,8 @@ class AdminController extends Controller
 
     public function adminEditProfile(Request $request, $id)
     {
-        $admin = Admin::findOrFail($id);  
-        
+        $admin = Admin::findOrFail($id);
+
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -431,11 +426,11 @@ class AdminController extends Controller
 
         $admin->full_name = $validated['full_name'];
         $admin->email = $validated['email'];
-        
+
         if ($request->filled('current_password')) {
-            
+
             if (!Hash::check($request->current_password, $admin->password)) {
-                
+
                 return back()->withErrors(['current_password' => 'Current password is incorrect.']);
             }
 
@@ -447,7 +442,7 @@ class AdminController extends Controller
         }
 
         $admin->save();
-        
+
         return redirect()->route('admin.profile', ['id' => $admin->id])->with('success', 'Profile updated successfully!');
     }
 
@@ -455,8 +450,8 @@ class AdminController extends Controller
     public function approve(Book $booking)
     {
         if ($booking->status !== 'Pending') {
-        return back()->with('error', 'Only pending bookings can be approved.');
-    }
+            return back()->with('error', 'Only pending bookings can be approved.');
+        }
 
         $booking->status = 'Confirmed';
         $booking->save();
@@ -468,8 +463,8 @@ class AdminController extends Controller
     public function reject(Book $booking)
     {
         if ($booking->status !== 'Pending') {
-        return back()->with('error', 'Only pending bookings can be rejected.');
-    }
+            return back()->with('error', 'Only pending bookings can be rejected.');
+        }
 
         $booking->status = 'Rejected';
         $booking->save();
@@ -477,5 +472,3 @@ class AdminController extends Controller
         return back()->with('success', 'Booking rejected successfully.');
     }
 }
-
-

@@ -38,19 +38,12 @@ class FutsalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -79,7 +72,8 @@ class FutsalController extends Controller
     // ----------------------------------------User Book Court----------------------------------------
 
 
-    public function showBookCourt() {
+    public function showBookCourt()
+    {
 
         $courts = Court::paginate();
         return view('users.booking', compact('courts'));
@@ -88,21 +82,24 @@ class FutsalController extends Controller
     // ----------------------------------------User LoginForm----------------------------------------
 
 
-    public function showLoginForm() {
+    public function showLoginForm()
+    {
         return view('users.auth.login');
     }
 
     // ----------------------------------------User SignupForm----------------------------------------
 
 
-    public function showSignupForm() {
+    public function showSignupForm()
+    {
         return view('users.auth.sign');
     }
 
     // ----------------------------------------User My Bookings----------------------------------------
 
 
-    public function showMyBookings() {
+    public function showMyBookings()
+    {
         $user = Auth::user();
         // $bookings = Book::with(['court', 'user'])->get();
         // if ($user) {
@@ -118,7 +115,8 @@ class FutsalController extends Controller
     // ----------------------------------------User profile----------------------------------------
 
 
-    public function showProfile() {
+    public function showProfile()
+    {
         $user = Auth::user();
         return view('users.profile', compact('user'));
     }
@@ -126,16 +124,17 @@ class FutsalController extends Controller
     // ----------------------------------------User Dashboard----------------------------------------
 
 
-    public function userDashboard() {
+    public function userDashboard()
+    {
 
         $user = Auth::user();
-        
+
         $totalBookings = Book::where('user_id', $user->id)->count();
-        
+
         $upcomingBookings = Book::where('user_id', $user->id)->with('court')
-                            ->where('time', '>=', now())
-                            ->orderBy('date', 'asc')
-                            ->get();
+            ->where('time', '>=', now())
+            ->orderBy('date', 'asc')
+            ->get();
 
         return view('users.dashboard', compact('user', 'totalBookings', 'upcomingBookings'));
     }
@@ -143,40 +142,41 @@ class FutsalController extends Controller
     // ----------------------------------------User signup----------------------------------------
 
 
-    public function register(FutsalRequest $request) {
+    public function register(FutsalRequest $request)
+    {
 
         $user = User::create([
-            'full_name'=> $request->input('full_name'),
-            'email'=> $request->input('email'),
-            'phone'=> $request->input('phone'),
-            'password'=> Hash::make($request->input('password')),
-            'terms'=> $request->input('terms'),
+            'full_name' => $request->input('full_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => Hash::make($request->input('password')),
+            'terms' => $request->input('terms'),
         ]);
 
         Auth::login($user);
         session()->flash('success', 'You have successfully logged in.');
         // return redirect()->route('login');
         return redirect()->route('userDashboard', $user->id);
-    }   
+    }
 
     // ----------------------------------------User login----------------------------------------
 
 
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request)
+    {
 
         $credentials = $request->only('email', 'password');
 
         $remember = $request->filled('remember');
-        
+
         if (Auth::attempt($credentials, $remember)) {
             // $request->session()->regenerate();
 
             return redirect()->route('userDashboard', Auth::user()->id)->with('success', 'You have successfully logged in.');
-        } 
-        else {
+        } else {
             return back()->withErrors([
                 'error' => 'Email or password did not match.',
-                ])->withInput();
+            ])->withInput();
         }
     }
 
@@ -197,16 +197,16 @@ class FutsalController extends Controller
     // ----------------------------------------Contact Form----------------------------------------
 
 
-    public function contact(Request $request) 
+    public function contact(Request $request)
     {
         $validated = $request->validate([
-            'full_name'=> 'required|string|max:255',
-            'email'=> 'required|email|max:255',
-            'phone'=> 'required|string|max:15',
-            'subject'=> 'required',
-            'message'=> 'required|string|max:1000'
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:15',
+            'subject' => 'required',
+            'message' => 'required|string|max:1000'
         ]);
-            Contact::create($validated);
-            return redirect()->back(); 
+        Contact::create($validated);
+        return redirect()->back();
     }
 }
